@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação Wi-Fi - gov.br</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .govbr-logo {
+            width: 180px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1351b4;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .login-btn {
+            background-color: #1351b4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-btn:hover {
+            background-color: #0d3a7a;
+        }
+        
+        .login-btn img {
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="Logo gov.br" class="govbr-logo">
+        
+        <h1>Autenticação na rede Wi-Fi</h1>
+        
+        <p>Para acessar a rede sem fio, faça login com suas credenciais do gov.br. O acesso está sujeito aos termos de uso da rede.</p>
+        
+        <button class="login-btn" onclick="window.location.href='{{ path('login') }}'">
+            <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br">
+            Entrar com gov.br
+        </button>
+        
+        <div class="footer">
+            Este serviço utiliza a plataforma de autenticação digital do governo federal.
+        </div>
+    </div>
+</body>
+</html>

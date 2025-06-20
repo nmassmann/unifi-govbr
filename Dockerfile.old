@@ -1,0 +1,48 @@
+FROM php:8.2-cli
+
+# Instala dependências necessárias
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \ 
+    pkg-config
+
+RUN docker-php-ext-install curl
+RUN docker-php-ext-install xml
+
+# Instala o Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Instala o symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
+# Altera o diretorio corrente do container
+WORKDIR /var/www/html
+
+# Copia os arquivos do composer primeiro (para aproveitar cache de camadas)
+COPY composer.json composer.lock ./
+
+# Instala as dependências do projeto 
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Copia todo o codigo fonte
+COPY . .
+
+# Gera o autoloader otimizado
+RUN composer dump-autoload --optimize
+
+# Expõe a porta se necessário (substitua pela sua porta)
+EXPOSE 8080
+
+# Gerando imagem ascii
+COPY scripts/ascii.sh /ascii.sh
+COPY banner.txt banner.txt
+RUN chmod +x /ascii.sh
+ENTRYPOINT ["/ascii.sh"]
+
+# Comando para iniciar a aplicação (substitua pelo seu comando)
+#CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+CMD ["symfony", "server:start", "--port=8080", "--no-tls", "--allow-all-ip"]

@@ -1,0 +1,58 @@
+# Etapa 1: Build
+FROM php:8.4.8-fpm-alpine AS build
+
+# Instala extensões PHP necessárias
+RUN apk add --no-cache --virtual .build-deps \
+        $PHPIZE_DEPS \
+        icu-dev \
+        libxml2-dev \
+        oniguruma-dev \
+        libzip-dev \
+        curl-dev \
+        git \
+        bash \
+        linux-headers \
+    && docker-php-ext-install intl mbstring opcache xml zip curl
+
+# Instala Xdebug para dev
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Instala Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia código da aplicação
+COPY . .
+
+# Instala dependências incluindo as de desenvolvimento
+RUN composer install --no-scripts --no-interaction
+
+# Etapa 2: Runtime Dev
+FROM php:8.4.8-fpm-alpine
+
+# Instala somente as libs runtime + git + bash pra dev
+RUN apk add --no-cache icu libxml2 oniguruma libzip curl git bash
+
+# Copia extensões PHP da build (incluindo Xdebug)
+COPY --from=build /usr/local/ /usr/local/
+
+# Copia a aplicação
+WORKDIR /var/www/html
+COPY --from=build /app /var/www/html
+
+# Variáveis de ambiente padrão pra dev
+ENV APP_ENV=dev
+ENV APP_DEBUG=1
+
+# Opcional: Configuração básica do Xdebug para dev (debug remoto simples)
+RUN echo "zend_extension=xdebug.so" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+EXPOSE 9000
+
+CMD ["php-fpm"]

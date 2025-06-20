@@ -1,0 +1,50 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    # UniFi
+    app.unifi.redirect_uri: '%env(UNIFI_REDIRECT_URI)%'
+    app.unifi.unifi_user: '%env(UNIFI_USER)%'
+    app.unifi.unifi_pass: '%env(UNIFI_PASS)%'
+    app.unifi.controller_url: '%env(UNIFI_CONTROLLER_URL)%'
+    app.unifi.controller_type: '%env(UNIFI_CONTROLLER_TYPE)%'
+    app.unifi.site_identifier: '%env(UNIFI_SITE_IDENTIFIER)%'
+    app.unifi.auth_min: 240
+    app.unifi.controller_version: '%env(UNIFI_CONTROLLER_VERSION)%'
+    
+    # URLs
+    app.url_login: '%env(URL_LOGIN)%'
+    app.url_logout: '%env(URL_LOGOUT)%'
+    
+    # Gov.br
+    app.govbr.url_provider: '%env(GOVBR_URL_PROVIDER)%'
+    app.govbr.url_service: '%env(GOVBR_URL_SERVICE)%'
+    app.govbr.redirect_uri: '%env(GOVBR_REDIRECT_URI)%'
+    app.govbr.scopes: '%env(GOVBR_SCOPES)%'
+    app.govbr.client_id: '%env(GOVBR_CLIENT_ID)%'
+    app.govbr.secret: '%env(GOVBR_SECRET)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+        public: true
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones

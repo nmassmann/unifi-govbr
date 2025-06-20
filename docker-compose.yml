@@ -1,0 +1,35 @@
+services:
+  app:
+    image: unifi-govbr:latest
+    container_name: unifi-govbr
+    restart: unless-stopped
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app_network2
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/hotspot.conf:/etc/nginx/sites-enabled/hotspot.conf
+      - ./certs:/etc/nginx/certs:ro 
+    links:
+      - app
+    depends_on:
+      - app
+    networks:
+      - app_network2
+
+networks:
+  app_network2:
+    driver: bridge
