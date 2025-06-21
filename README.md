@@ -41,7 +41,14 @@ Caso o sistema esteja em homolagação do gov.br os domínios a seguir são nece
 - sso.staging.acesso.gov.br
 - api.staging.acesso.gov.br
 
-
 # Instalação
 
+A solução é composta por dois containers: um container NGINX, que atua como proxy reverso, recebendo todas as conexões nas portas 80 e 443 e redirecionando para o container da aplicação na porta 9000. Além disso, o NGINX é responsável pelo gerenciamento dos certificados SSL do captive portal.
+
+1) Clone o repositório: git clone https://github.com/dcc6fvo/unifi-govbr.git
+2) Copie o arquivo de exemplo das variáveis de ambiente e ajuste conforme o ambiente local: cp env.sample .env
+3) Adicione os certificados SSL na pasta certs.
+4) Edite o arquivo nginx/hotspot.conf, ajustando o domínio, ceritificados etc etc.. conforme a necessidade do ambiente.
+5) Caso necessário, faça as modificações desejadas no arquivo docker-compose.yml.
+6) Por fim, execute o comando para iniciar os containers: docker compose up
 
