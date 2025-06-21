@@ -12,6 +12,22 @@ As controladoras unifi suportadas, tanto de software como hardware, são as mesm
 
 # Requisitos
 
+As bibliotecas necessárias para rodar a aplicação estão descritas no arquivo Dockerfile.
+
 # Configurações na Controladora
 
+A configuração na controladora é feita em duas etapas.
+
+Primeiro, na aba "Authentication", é necessário definir um captive portal externo, informando o endereço onde esta aplicação estará em execução.
+
+![unifi-cp1](docs/images/unifi-cp1.png)
+
+Em seguida, na aba "Settings", devem ser habilitadas as seguintes opções: "Show landing page", "HTTPS Redirection Support", "Secure Portal" e, opcionalmente, o campo "Domain".
+
+![unifi-cp3](docs/images/unifi-cp3.png)
+
+Após essas configurações, sempre que um usuário se conectar à rede controlada pelo captive portal, ele será automaticamente redirecionado para a página de autenticação. Durante esse processo, a controladora enviará ao captive portal quatro informações: o endereço MAC do Access Point (AP) ao qual o usuário está conectado, o endereço MAC do dispositivo do usuário, a data e hora da tentativa de acesso e a URL original solicitada.
+
 # Instalação
+
+
