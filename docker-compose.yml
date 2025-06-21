@@ -1,6 +1,8 @@
 services:
   app:
-    image: unifi-govbr:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: unifi-govbr
     restart: unless-stopped
     expose:
