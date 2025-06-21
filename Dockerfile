@@ -24,7 +24,7 @@ COPY . .
 
 # Instala dependências PHP (produção)
 RUN composer install --no-dev --optimize-autoloader --no-scripts
-1
+
 # Compila cache do Symfony
 RUN php bin/console cache:clear --env=prod --no-debug \
     && php bin/console cache:warmup --env=prod --no-debug

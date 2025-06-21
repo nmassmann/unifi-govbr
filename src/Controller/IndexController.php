@@ -27,10 +27,10 @@ class IndexController extends AbstractController
             $mac = htmlspecialchars($_GET['id']);
             $_SESSION['mac'] = $mac;
         } else {
-            //echo "Parâmetros wifi não recebidos.";
-            //return $this->render('error.html.twig', [
-            //   'mensagem' => 'Não foi possível autenticar. Parâmetros wifi não recebidos.'
-            //]);
+            $this->logger->error('Erro: Parâmetros wifi não recebidos ');
+            return $this->render('error.html.twig', [
+               'mensagem' => 'Não foi possível autenticar. Parâmetros wifi não recebidos.'
+            ]);
         }
 
         $_SESSION['ap']  = $_GET['ap']  ?? '';
