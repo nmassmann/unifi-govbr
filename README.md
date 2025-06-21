@@ -20,13 +20,27 @@ A configuração na controladora é feita em duas etapas.
 
 Primeiro, na aba "Authentication", é necessário definir um captive portal externo, informando o endereço onde esta aplicação estará em execução.
 
-![unifi-cp1](docs/images/unifi-cp1.png)
+![unifi-cp3](docs/images/unifi-cp3.png)
 
 Em seguida, na aba "Settings", devem ser habilitadas as seguintes opções: "Show landing page", "HTTPS Redirection Support", "Secure Portal" e, opcionalmente, o campo "Domain".
 
-![unifi-cp3](docs/images/unifi-cp3.png)
+![unifi-cp3](docs/images/unifi-cp2.png)
 
 Após essas configurações, sempre que um usuário se conectar à rede controlada pelo captive portal, ele será automaticamente redirecionado para a página de autenticação. Durante esse processo, a controladora enviará ao captive portal quatro informações: o endereço MAC do Access Point (AP) ao qual o usuário está conectado, o endereço MAC do dispositivo do usuário, a data e hora da tentativa de acesso e a URL original solicitada.
+
+Em produção os seguintes domínios são recomendados para pré autenticação (ou seja, domínios acessíveis mesmo sem o usuário autenticar):
+
+- gov.br
+- acesso.gov.br
+- sso.acesso.gov.br
+- api.acesso.gov.br
+- newassets.hcaptcha.com
+
+Caso o sistema esteja em homolagação do gov.br os domínios a seguir são necessários:
+
+- sso.staging.acesso.gov.br
+- api.staging.acesso.gov.br
+
 
 # Instalação
 
