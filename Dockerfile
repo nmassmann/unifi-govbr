@@ -42,6 +42,8 @@ COPY --from=build /usr/local/ /usr/local/
 WORKDIR /var/www/html
 COPY --from=build /app /var/www/html
 
+RUN chmod 777 var/cache
+
 # Gerando imagem ascii
 COPY scripts/ascii.sh /ascii.sh
 COPY banner banner

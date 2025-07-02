@@ -19,6 +19,16 @@ class LoginController extends AbstractController
 
     public function index(): Response {
 
+
+        session_start();
+
+        if (! isset($_SESSION['code_verifier'])) {
+            $this->logger->error('Erro: Code Verifier não encontrado na sessão ' . $e->getMessage());
+            return $this->render('error.html.twig', [
+                'mensagem' => 'Erro: Code Verifier não encontrado na sessão.'
+            ]);
+        }
+
         // Paramentos de configuração fornecidos pelo GOV.BR
 
         // URL do provedor de auth
@@ -40,7 +50,6 @@ class LoginController extends AbstractController
         $SECRET=$this->params->get('app.govbr.secret');
 
         // Identificacao de qual MAC ADDRESS esta solicitando acesso via gov.br
-        session_start();
         $STATE=$_SESSION['mac'];
         $CODE_CHALLENGE=$_SESSION['code_challenge'];
 

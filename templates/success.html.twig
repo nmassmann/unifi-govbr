@@ -52,8 +52,8 @@
              alt="Logo gov.br" class="govbr-logo">
         <h1>Autenticação bem‑sucedida!</h1>
         <p>Você foi autenticado com sucesso e já pode navegar na Internet.</p>
-            <button class="logout-btn" onclick="window.location.href='{{ url_logout }}'">
-                Fazer Logout
+            <button class="logout-btn" onclick="window.location.href='{{ url_provider }}/logout?post_logout_redirect_uri={{ url_logout }}'">
+                Fazer Logout 
             </button>
         <div class="footer">
             Para desconectar, use o botão acima.

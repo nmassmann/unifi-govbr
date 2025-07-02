@@ -144,7 +144,8 @@ class ReturnCallbackController extends AbstractController
 
                                     $this->logger->info('Cliente '.$payloadData['sub'].' conectado.');
                                     return $this->render('success.html.twig', [
-                                        'url_logout' => $this->params->get('app.url_logout')
+                                        'url_logout' => $this->params->get('app.url_logout'),
+                                        'url_provider' => $this->params->get('app.govbr.url_provider')
                                     ]);
                                     
                                 }else{
