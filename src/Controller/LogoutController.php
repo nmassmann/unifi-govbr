@@ -22,7 +22,7 @@ class LogoutController extends AbstractController
     public function __construct(private ParameterBagInterface $params,
                                 private LoggerInterface $logger) {}
 
-    public function index(): Response {
+    public function index(UnifiService $unifiService): Response {
 
         session_start();
 
