@@ -136,10 +136,19 @@ class ReturnCallbackController extends AbstractController
                         }
                         // Acessa atributos específicos
                         if (isset($payloadData['name'])) {
-                            /*echo "<p>Dados da pessoa logada vindos do ID Token: </p>";
-                            echo "<p>CPF: " . htmlspecialchars($payloadData['sub']) . "</p>";
-                            echo "<p>Nome: " . htmlspecialchars($payloadData['name']) . "</p>";
-                            echo "<p>E-Mail: " . htmlspecialchars($payloadData['email']) . "</p>";*/
+
+                            // Outros dados recuperaveis:
+                            /*{
+                                "sub": "11111111111", //cpf
+                                "name": "NAME",
+                                "social_name": "SOCIAL NAME",
+                                "profile": "https://servicos.staging.acesso.gov.br/",
+                                "picture": "https://sso.staging.acesso.gov.br/userinfo/picture",
+                                "email": "email@acesso.gov.br",
+                                "email_verified": true,
+                                "phone_number": "61999999999",
+                                "phone_number_verified": true
+                            }*/
 
                             $macSessao = $_SESSION['mac'];
                             $macRetorno = $_GET['state'];
