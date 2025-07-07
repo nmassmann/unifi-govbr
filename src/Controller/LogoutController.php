@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\UnifiService;
+
 use App\Utils\Govbr;
 use App\Utils\Net;
 
@@ -19,10 +21,16 @@ use UniFi_API\Client;
 class LogoutController extends AbstractController
 {
 
-    public function __construct(private ParameterBagInterface $params,
-                                private LoggerInterface $logger) {}
+    private UnifiService $conn;
 
-    public function index(UnifiService $unifiService): Response {
+    public function __construct(private UnifiService $unifiService,
+                                private ParameterBagInterface $params,
+                                private LoggerInterface $logger) {
+       
+        $this->conn=$unifiService;
+    }
+
+    public function index(): Response {
 
         session_start();
 
@@ -34,30 +42,8 @@ class LogoutController extends AbstractController
         }
 
         try {
-            $site_id = $this->params->get('app.unifi.site_identifier');
 
-            $unifi_connection = new Client(
-                    $this->params->get('app.unifi.unifi_user'),
-                    $this->params->get('app.unifi.unifi_pass'),
-                    $this->params->get('app.unifi.controller_url'),
-                    $site_id,
-                    $this->params->get('app.unifi.controller_version'),
-                    false
-            );
-
-            $loginresults = $unifi_connection->login();
-
-            if (!$loginresults) {
-
-                $this->logger->error('Falha no login no controlador UniFi');
-                return [
-                        'success' => false,
-                        'message' => 'Falha no login no controlador UniFi'
-                ];
-
-            }
-
-            $unauthorize = $unifi_connection->unauthorize_guest($_SESSION['mac']);
+            $unauthorize = $this->conn->unauthorizeGuest($_SESSION['mac']);
 
             if ($unauthorize) {
 
@@ -82,8 +68,11 @@ class LogoutController extends AbstractController
                     'success' => false,
                     'message' => 'General Exception in logout: ' . $e->getMessage()
             ]; 
-
         }
+
+        finally {
+            $this->conn->disconnect();
+        } 
     }
 }
 

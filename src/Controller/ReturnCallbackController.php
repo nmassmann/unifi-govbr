@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\UnifiService;
+
 use Psr\Log\LoggerInterface;
 
 use Symfony\Component\HttpClient\HttpClient;
@@ -28,8 +30,14 @@ use Exception;
 class ReturnCallbackController extends AbstractController
 {
 
-    public function __construct(private ParameterBagInterface $params,
-                                private LoggerInterface $logger) {}
+    private UnifiService $conn;
+
+    public function __construct(private UnifiService $unifiService,
+                                private ParameterBagInterface $params,
+                                private LoggerInterface $logger) {
+
+        $this->conn=$unifiService;
+    }
 
     public function index(): Response {
 
@@ -39,7 +47,7 @@ class ReturnCallbackController extends AbstractController
             $codeVerifier = $_SESSION['code_verifier'];
             // Use o $codeVerifier na requisição para o endpoint /token
         } else {
-            $this->logger->error('Erro: Code Verifier não encontrado na sessão ' . $e->getMessage());
+            $this->logger->error('Erro: Code Verifier não encontrado na sessão ');
             return $this->render('error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier não encontrado na sessão.'
             ]);
@@ -201,14 +209,14 @@ class ReturnCallbackController extends AbstractController
                         }
                         
                     } else {
-                        $this->logger->error('Erro: o access token não é um JWT válido ' . $e->getMessage());
+                        $this->logger->error('Erro: o access token não é um JWT válido ');
                         return $this->render('error.html.twig', [
                              'mensagem' => 'O Access Token não é um JWT válido.'
                         ]);
             
                     }
                 } else {
-                    $this->logger->error('Erro: access token não foi recebido ' . $e->getMessage());
+                    $this->logger->error('Erro: access token não foi recebido ');
                     return $this->render('error.html.twig', [
                         'mensagem' => 'Access Token não foi recebido'
                     ]);
@@ -218,7 +226,7 @@ class ReturnCallbackController extends AbstractController
             // Fecha o cURL
             curl_close($ch);
         } else {
-            $this->logger->error('Erro: nenhum código foi recebido. ' . $e->getMessage());
+            $this->logger->error('Erro: nenhum código foi recebido. ' );
             return $this->render('error.html.twig', [
                 'mensagem' => 'Erro: Nenhum código foi recebido.'
             ]);
@@ -229,43 +237,14 @@ class ReturnCallbackController extends AbstractController
     public function doAuth(string $ap, string $mac, string $note ): array
     {
         try {
-            $this->params->resolve();
-
-            $duration = $this->params->get('app.unifi.auth_min');
-            $site_id = $this->params->get('app.unifi.site_identifier');
-
-            $unifi_connection = new Client(
-                $this->params->get('app.unifi.unifi_user'),
-                $this->params->get('app.unifi.unifi_pass'),
-                $this->params->get('app.unifi.controller_url'),
-                $site_id,
-                $this->params->get('app.unifi.controller_version'),
-                false
-            );
-
-            // Configuração do debug (assumindo false como padrão)
-            //$debug = false;
-            //$unifi_connection->set_debug($debug);
+            //$this->params->resolve();
             
-            $loginresults = $unifi_connection->login();
-
-            if (!$loginresults) {
-
-                $this->logger->error('Falha no login no controlador UniFi');
-                return [
-                        'success' => false,
-                        'message' => 'Falha no login no controlador UniFi'
-                ];
-
-            }
-
-            /**
-             * Autoriza o dispositivo pelo tempo solicitado
-             */
-            $auth_result = $unifi_connection->authorize_guest($mac, $duration, null, null, null, $ap);
-            $getid_result = $unifi_connection->stat_client($mac);
+            //Autoriza o dispositivo pelo tempo solicitado
+            $duration = $this->params->get('app.unifi.auth_min');
+            $auth_result = $this->conn->authorizeGuest($mac, $duration, $ap);
+            $getid_result = $this->conn->statClient($mac);
             $user_id      = $getid_result[0]->_id;
-            $note_result  = $unifi_connection->set_sta_note($user_id, $note);
+            $note_result  = $this->conn->setStationNote($user_id, $note);
 
             return [
                     'success' => true,
@@ -345,6 +324,9 @@ class ReturnCallbackController extends AbstractController
             ]; 
 
         }
+        finally {
+            $this->conn->disconnect();
+        } 
     }
 
 }
