@@ -12,6 +12,7 @@ parameters:
     app.unifi.controller_type: '%env(UNIFI_CONTROLLER_TYPE)%'
     app.unifi.site_identifier: '%env(UNIFI_SITE_IDENTIFIER)%'
     app.unifi.auth_min: 240
+    app.unifi.debug: '%env(UNIFI_DEBUG)%'
     app.unifi.controller_version: '%env(UNIFI_CONTROLLER_VERSION)%'
     
     # URLs
