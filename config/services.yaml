@@ -17,12 +17,16 @@ parameters:
     
     # URLs
     app.url_login: '%env(URL_LOGIN)%'
+    app.url_login_path: '%env(URL_LOGIN_PATH)%'
     app.url_logout: '%env(URL_LOGOUT)%'
+    app.url_logout_path: '%env(URL_LOGOUT_PATH)%'
     
     # Gov.br
     app.govbr.url_provider: '%env(GOVBR_URL_PROVIDER)%'
     app.govbr.url_service: '%env(GOVBR_URL_SERVICE)%'
+    app.govbr.uri: '%env(GOVBR_URI)%'
     app.govbr.redirect_uri: '%env(GOVBR_REDIRECT_URI)%'
+    app.govbr.redirect_path: '%env(GOVBR_REDIRETCT_PATH)%'
     app.govbr.scopes: '%env(GOVBR_SCOPES)%'
     app.govbr.client_id: '%env(GOVBR_CLIENT_ID)%'
     app.govbr.secret: '%env(GOVBR_SECRET)%'

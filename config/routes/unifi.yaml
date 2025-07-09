@@ -1,0 +1,15 @@
+index_unifi:
+    path:  '/guest/s/%app.unifi.site_identifier%'
+    controller: App\Controller\IndexController::index
+
+login:
+    path: '%app.url_login_path%'
+    controller: App\Controller\LoginController::index 
+
+logout:
+    path: '%app.url_logout_path%'
+    controller: App\Controller\LogoutController::index 
+
+return_callback:
+    path: '%app.govbr.redirect_path%'
+    controller: App\Controller\ReturnCallbackController::index
