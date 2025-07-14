@@ -1,3 +1,7 @@
+index:
+    path:  /
+    controller: App\Controller\IndexController::index
+
 index_unifi:
     path:  '/guest/s/%app.unifi.site_identifier%'
     controller: App\Controller\IndexController::index

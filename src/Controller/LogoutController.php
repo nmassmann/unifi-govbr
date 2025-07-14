@@ -14,8 +14,6 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Twig\Environment;
-
 use UniFi_API\Client;
 
 class LogoutController extends AbstractController
@@ -36,7 +34,7 @@ class LogoutController extends AbstractController
 
         if (!isset($_SESSION['code_verifier']) && !isset($_SESSION['mac'])) {
             $this->logger->error('Erro: Code Verifier e/ou mac não encontrado na sessão ' . $e->getMessage());
-            return $this->render('error.html.twig', [
+            return $this->render('unifi/error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier e/ou mac não encontrado na sessão.'
             ]);
         }

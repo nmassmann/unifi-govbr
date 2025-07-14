@@ -28,9 +28,9 @@ class IndexController extends AbstractController
             $mac = htmlspecialchars($request->query->get('id'));
             $_SESSION['mac'] = $mac;
         } else {
-            $this->logger->critical('Erro: Parâmetros wifi não recebidos ');
-            return $this->render('error.html.twig', [
-               'mensagem' => 'Não foi possível autenticar. Parâmetros wifi não recebidos.'
+            $this->logger->critical('Erro: Parâmetros wifi não recebidos. Acesse via controladora wifi. ');
+            return $this->render('unifi/error.html.twig', [
+               'mensagem' => 'Não foi possível autenticar. Parâmetros wifi não recebidos. Acesse via controladora wifi.'
             ]);
         }
 
@@ -46,7 +46,7 @@ class IndexController extends AbstractController
         $codeChallenge = Govbr::generateCodeChallenge($codeVerifier);
         $_SESSION['code_challenge'] = $codeChallenge;
 
-        return $this->render('login.html.twig', [
+        return $this->render('unifi/login.html.twig', [
                 'url_login' => $this->params->get('app.url_login')
         ]);
 
