@@ -62,24 +62,24 @@ Passo 1: O usuário deve se conectar à rede Wi-Fi que foi configurada para aces
 
 Passo 2: Após conectar-se à rede, o usuário será redirecionado para a página inicial da aplicação, onde encontrará a opção "Logar com gov.br":
 
-<img src="docs/images/unifi-govbr-passo2-captive-portal.png" alt="unifi-govbr-passo2-captive-portal" width="450"/>
+<img src="docs/images/unifi-govbr-passo2-captive-portal.png" alt="unifi-govbr-passo2-captive-portal" width="500"/>
 
 Passo 3: Em seguida, o usuário será direcionado para a página de login da plataforma gov.br, onde deverá inserir o CPF correspondente:
 
-<img src="docs/images/unifi-govbr-passo3-login-govbr-cpf.png" alt="unifi-govbr-passo3-login-govbr-cpf" width="300"/>
+<img src="docs/images/unifi-govbr-passo3-login-govbr-cpf.png" alt="unifi-govbr-passo3-login-govbr-cpf" width="500"/>
 
 Passo 4: Na etapa seguinte, o usuário deverá digitar a senha de sua conta gov.br:
 
-<img src="docs/images/unifi-govbr-passo4-login-govbr-senha.png" alt="unifi-govbr-passo4-login-govbr-senha" width="300"/>
+<img src="docs/images/unifi-govbr-passo4-login-govbr-senha.png" alt="unifi-govbr-passo4-login-govbr-senha" width="500"/>
 
 Passo 5: Dependendo das configurações do usuário e do navegador utilizado, poderá ser necessário realizar a autenticação em dois fatores através do aplicativo gov.br. Nesse momento, é recomendável marcar a opção "Não solicitar verificação em duas etapas novamente neste navegador":
 
-<img src="docs/images/unifi-govbr-passo5-login-govbr-2fa.png" alt="unifi-govbr-passo5-login-govbr-2fa" width="300"/>
+<img src="docs/images/unifi-govbr-passo5-login-govbr-2fa.png" alt="unifi-govbr-passo5-login-govbr-2fa" width="500"/>
 
 Passo 6: Neste último passo, o usuário deverá clicar em "Autorizar" para permitir que o aplicativo de autenticação gov.br colete os dados necessários para a conexão, possibilitando uma autenticação segura e auditável:
 
-<img src="docs/images/unifi-govbr-passo6-login-autorizar-app.png" alt="unifi-govbr-passo6-login-autorizar-app" width="300"/>
+<img src="docs/images/unifi-govbr-passo6-login-autorizar-app.png" alt="unifi-govbr-passo6-login-autorizar-app" width="500"/>
 
 Ao final do processo, o usuário estará autenticado e com acesso liberado por um período de 240 minutos. Após esse tempo, será necessário realizar um novo login na plataforma gov.br para continuar utilizando a internet.
 
-<img src="docs/images/unifi-govbr-passo7-sucesso.png" alt="unifi-govbr-passo7-sucesso" width="300"/>
+<img src="docs/images/unifi-govbr-passo7-sucesso.png" alt="unifi-govbr-passo7-sucesso" width="500"/>
