@@ -76,7 +76,7 @@ Passo 5: Dependendo das configurações do usuário e do navegador utilizado, po
 
 <img src="docs/images/unifi-govbr-passo5-login-govbr-2fa.png" alt="unifi-govbr-passo5-login-govbr-2fa" width="500"/>
 
-Passo 6: Neste último passo, o usuário deverá clicar em "Autorizar" para permitir que o aplicativo de autenticação gov.br colete os dados necessários para a conexão, possibilitando uma autenticação segura e auditável:
+Passo 6: Neste último passo, o usuário deverá clicar em "Autorizar" para permitir que o aplicativo de autenticação gov.br colete os dados necessários para a conexão, possibilitando uma autenticação segura e auditável. Esse passo só é necessário realizar uma única vez:
 
 <img src="docs/images/unifi-govbr-passo6-login-autorizar-app.png" alt="unifi-govbr-passo6-login-autorizar-app" width="500"/>
 
