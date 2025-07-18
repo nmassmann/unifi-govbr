@@ -52,3 +52,34 @@ A solução é composta por dois containers: um container NGINX, que atua como p
 5) Caso necessário, faça as modificações desejadas no arquivo docker-compose.yml.
 6) Por fim, execute o comando para iniciar os containers: docker compose up
 
+# Uso
+
+A sequência de passos a seguir demonstra o uso da aplicação desenvolvida neste repositório:
+
+Passo 1: O usuário deve se conectar à rede Wi-Fi que foi configurada para acesso via gov.br, conforme mostra o exemplo visual do ambiente de rede:
+
+<img src="docs/images/unifi-govbr-passo1-wifi.png" alt="unifi-govbr-passo1-wifi" width="300"/>
+
+Passo 2: Após conectar-se à rede, o usuário será redirecionado para a página inicial da aplicação, onde encontrará a opção "Logar com gov.br":
+
+<img src="docs/images/unifi-govbr-passo2-captive-portal.png" alt="unifi-govbr-passo2-captive-portal" width="300"/>
+
+Passo 3: Em seguida, o usuário será direcionado para a página de login da plataforma gov.br, onde deverá inserir o CPF correspondente:
+
+<img src="docs/images/unifi-govbr-passo3-login-govbr-cpf.png" alt="unifi-govbr-passo3-login-govbr-cpf" width="300"/>
+
+Passo 4: Na etapa seguinte, o usuário deverá digitar a senha de sua conta gov.br:
+
+<img src="docs/images/unifi-govbr-passo4-login-govbr-senha.png" alt="unifi-govbr-passo4-login-govbr-senha" width="300"/>
+
+Passo 5: Dependendo das configurações do usuário e do navegador utilizado, poderá ser necessário realizar a autenticação em dois fatores através do aplicativo gov.br. Nesse momento, é recomendável marcar a opção "Não solicitar verificação em duas etapas novamente neste navegador":
+
+<img src="docs/images/unifi-govbr-passo5-login-govbr-2fa.png" alt="unifi-govbr-passo5-login-govbr-2fa" width="300"/>
+
+Passo 6: Neste último passo, o usuário deverá clicar em "Autorizar" para permitir que o aplicativo de autenticação gov.br colete os dados necessários para a conexão, possibilitando uma autenticação segura e auditável:
+
+<img src="docs/images/unifi-govbr-passo6-login-autorizar-app.png" alt="unifi-govbr-passo6-login-autorizar-app" width="300"/>
+
+Ao final do processo, o usuário estará autenticado e com acesso liberado por um período de 240 minutos. Após esse tempo, será necessário realizar um novo login na plataforma gov.br para continuar utilizando a internet.
+
+<img src="docs/images/unifi-govbr-passo7-sucesso.png" alt="unifi-govbr-passo7-sucesso" width="300"/>
