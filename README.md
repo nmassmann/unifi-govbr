@@ -62,7 +62,7 @@ Passo 1: O usuário deve se conectar à rede Wi-Fi que foi configurada para aces
 
 Passo 2: Após conectar-se à rede, o usuário será redirecionado para a página inicial da aplicação, onde encontrará a opção "Logar com gov.br":
 
-<img src="docs/images/unifi-govbr-passo2-captive-portal.png" alt="unifi-govbr-passo2-captive-portal" width="300"/>
+<img src="docs/images/unifi-govbr-passo2-captive-portal.png" alt="unifi-govbr-passo2-captive-portal" width="450"/>
 
 Passo 3: Em seguida, o usuário será direcionado para a página de login da plataforma gov.br, onde deverá inserir o CPF correspondente:
 
