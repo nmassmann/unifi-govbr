@@ -12,7 +12,15 @@ As controladoras unifi suportadas, tanto de software como hardware, são as mesm
 
 # Requisitos
 
+Solicitar credencial de login único (link abaixo).
+
 As bibliotecas necessárias para rodar a aplicação estão descritas no arquivo Dockerfile.
+
+# Links Úteis
+
+[Solicitar Credencial do Login Único]([https://acesso.gov.br/roteiro-tecnico/iniciarintegracao.html](https://www.gov.br/governodigital/pt-br/estrategias-e-governanca-digital/transformacao-digital/servico-de-integracao-aos-produtos-de-identidade-digital-gov.br)
+
+[Passo-a-Passo para Integrar](https://acesso.gov.br/roteiro-tecnico/iniciarintegracao.html)
 
 # Configurações na Controladora
 
