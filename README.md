@@ -18,7 +18,7 @@ As bibliotecas necessárias para rodar a aplicação estão descritas no arquivo
 
 # Links Úteis
 
-[Solicitar Credencial do Login Único]([https://acesso.gov.br/roteiro-tecnico/iniciarintegracao.html](https://www.gov.br/governodigital/pt-br/estrategias-e-governanca-digital/transformacao-digital/servico-de-integracao-aos-produtos-de-identidade-digital-gov.br)
+[Solicitar Credencial do Login Único](https://www.gov.br/governodigital/pt-br/estrategias-e-governanca-digital/transformacao-digital/servico-de-integracao-aos-produtos-de-identidade-digital-gov.br)
 
 [Passo-a-Passo para Integrar](https://acesso.gov.br/roteiro-tecnico/iniciarintegracao.html)
 
