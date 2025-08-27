@@ -58,7 +58,8 @@ A solução é composta por dois containers: um container NGINX, que atua como p
 3) Adicione os certificados SSL na pasta certs.
 4) Edite o arquivo nginx/hotspot.conf, ajustando o domínio, ceritificados etc etc.. conforme a necessidade do ambiente.
 5) Caso necessário, faça as modificações desejadas no arquivo docker-compose.yml.
-6) Por fim, execute o comando para iniciar os containers: docker compose up
+6) Rode o script refresh.sh para fazer a atualização das bibliotecas e composer.
+7) Por fim, execute o comando para iniciar os containers: docker compose up
 
 # Uso
 
