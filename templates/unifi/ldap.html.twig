@@ -1,0 +1,32 @@
+{%  extends 'base.html.twig' %}
+
+
+{%  block body %}
+<body>
+    <div class="container">
+        <h3>Autenticação via LDAP</h3>
+
+        {% if error is defined %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" action="{{ path('ldap_auth') }}">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required class="form-control" />
+            </div>
+            <button type="submit" class="login-btn">Entrar</button>
+        </form>
+
+        <div style="margin-top: 16px;">
+            <a href="{{ path('index') }}">Voltar</a>
+        </div>
+    </div>
+</body>
+{%  endblock %}
+
+
