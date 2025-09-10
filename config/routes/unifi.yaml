@@ -25,3 +25,7 @@ ldap_form:
 ldap_auth:
     path: '/ldap/auth'
     controller: App\Controller\LdapLoginController::authenticate
+
+dev_mock:
+    path: '/_dev/mock'
+    controller: App\Controller\DevMockController::mock

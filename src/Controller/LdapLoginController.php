@@ -19,10 +19,14 @@ class LdapLoginController extends AbstractController
         private LoggerInterface $logger
     ) {}
 
-    public function form(): Response
+    public function form(Request $request): Response
     {
-        session_start();
-        if (!isset($_SESSION['mac'])) {
+        $session = $request->getSession();
+        if (!$session->isStarted()) {
+            $session->start();
+        }
+
+        if (!$session->has('mac')) {
             $this->logger->critical('Parâmetros wifi não recebidos (sessão sem MAC).');
             return $this->render('unifi/error.html.twig', [
                 'mensagem' => 'Não foi possível autenticar. Acesse via controladora wifi.'
@@ -34,7 +38,10 @@ class LdapLoginController extends AbstractController
 
     public function authenticate(Request $request): Response
     {
-        session_start();
+        $session = $request->getSession();
+        if (!$session->isStarted()) {
+            $session->start();
+        }
 
         $username = trim((string) $request->request->get('username', ''));
         $password = (string) $request->request->get('password', '');
@@ -52,8 +59,8 @@ class LdapLoginController extends AbstractController
             ]);
         }
 
-        $mac = $_SESSION['mac'] ?? '';
-        $ap = $_SESSION['ap'] ?? null;
+        $mac = (string) $session->get('mac', '');
+        $ap = $session->get('ap');
 
         try {
             $duration = (int) $this->params->get('app.unifi.auth_min');
