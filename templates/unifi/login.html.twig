@@ -4,8 +4,11 @@
 {%  block body %}
 <body>
     <div class="hero">
-        <div class="panel">
+        <div class="wrap">
+        <div class="logo-top">
             <img src="{{ asset('banner/uffs-logo-branca.png') }}" alt="Universidade Federal da Fronteira Sul" class="uffs-logo" onerror="this.style.display='none'">
+        </div>
+        <div class="panel">
             <h4>Forneça suas credenciais para acessar a rede da UFFS</h4>
 
             <div class="tabs pills">
@@ -41,6 +44,7 @@
                 <small>Ao entrar você reconhece e aceita os termos da Política de Segurança da Informação e Comunicações da UFFS.</small>
             </div>
         </div>
+        </div>
     </div>
 
     <script>
@@ -61,9 +65,11 @@
 
     <style>
         body { background: linear-gradient(180deg, #3d7d66 0%, #3d7d66 100%); }
-        .hero { width: 100%; display:flex; align-items: flex-start; justify-content: center; }
-        .panel { margin-top: 40px; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 8px; width: 95%; max-width: 640px; text-align: center; }
-        .uffs-logo { width: 280px; margin: 8px auto 16px auto; display:block; }
+        .hero { width: 100%; display:flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+        .wrap { width:95%; max-width:640px; }
+        .logo-top { width:100%; display:flex; justify-content:center; margin-top: 32px; margin-bottom: 8px; }
+        .panel { margin-top: 0; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 8px; width: 100%; text-align: center; }
+        .uffs-logo { width: 320px; max-width: 90vw; margin: 0 auto; display:block; }
         h4 { margin: 0 0 16px 0; font-weight: 500; color: #1a2e22; }
         .tabs { display:flex; gap:10px; margin: 8px 0 16px 0; justify-content:center; }
         .tabs.pills .tablink { 
