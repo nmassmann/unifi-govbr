@@ -3,41 +3,44 @@
 
 {%  block body %}
 <body>
-    <div class="container">
-        <img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="Logo gov.br" class="govbr-logo">
-        
-        <h3>Autenticação na rede Wi‑Fi</h3>
+    <div class="hero">
+        <div class="panel">
+            <img src="/banner/uffs-logo-branca.png" alt="Universidade Federal da Fronteira Sul" class="uffs-logo" onerror="this.style.display='none'">
+            <h4>Forneça suas credenciais para acessar a rede da UFFS</h4>
 
-        <div class="tabs">
-            <button class="tablink active" data-tab="tab-ldap1">LDAP</button>
-            <button class="tablink" data-tab="tab-ldap2">LDAP (alternativo)</button>
-            <button class="tablink" data-tab="tab-govbr">gov.br</button>
-        </div>
+            <div class="tabs">
+                <button class="tablink active" data-tab="tab-ldap1">Servidor/Aluno</button>
+                <button class="tablink" data-tab="tab-ldap2">Visitante</button>
+                <button class="tablink" data-tab="tab-govbr">gov.br</button>
+            </div>
 
-        <div id="tab-ldap1" class="tabcontent" style="display:block">
-            <p>Autentique‑se com suas credenciais institucionais (LDAP).</p>
-            <button class="login-btn" onclick="window.location.href='{{ path('ldap_form') }}'">
-                Entrar com LDAP
-            </button>
-        </div>
+            <div id="tab-ldap1" class="tabcontent" style="display:block">
+                <form method="post" action="{{ path('ldap_auth') }}">
+                    <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
+                    <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
+                    <button type="submit" class="btn">Entrar</button>
+                </form>
+            </div>
 
-        <div id="tab-ldap2" class="tabcontent">
-            <p>Segunda opção de autenticação LDAP. Utilize se a primeira não funcionar.</p>
-            <button class="login-btn" onclick="window.location.href='{{ path('ldap_form') }}'">
-                Entrar com LDAP (alternativo)
-            </button>
-        </div>
+            <div id="tab-ldap2" class="tabcontent">
+                <form method="post" action="{{ path('ldap_auth') }}">
+                    <input type="text" name="username" placeholder="idUFFS (visitante)" autocomplete="username" required class="inp" />
+                    <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
+                    <button type="submit" class="btn">Entrar</button>
+                </form>
+            </div>
 
-        <div id="tab-govbr" class="tabcontent">
-            <p>Faça login com sua conta gov.br.</p>
-            <button class="login-btn" onclick="window.location.href='{{ path('login') }}'">
-                <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br">
-                Entrar com gov.br
-            </button>
-        </div>
+            <div id="tab-govbr" class="tabcontent">
+                <p>Autentique-se com sua conta gov.br para acessar a rede.</p>
+                <button class="btn btn-govbr" onclick="window.location.href='{{ path('login') }}'">
+                    Entrar com gov.br
+                </button>
+            </div>
 
-        <div class="footer">
-            Este serviço utiliza a plataforma de autenticação digital do governo federal.
+            <div class="links">
+                <a href="#">Suporte técnico</a>
+                <small>Ao entrar você reconhece e aceita os termos da Política de Segurança da Informação e Comunicações da UFFS.</small>
+            </div>
         </div>
     </div>
 
@@ -58,13 +61,22 @@
     </script>
 
     <style>
-        .tabs { display: flex; gap: 8px; margin-bottom: 16px; justify-content: center; }
-        .tablink {
-            background: #e9eef7; border: 1px solid #c9d6f0; color: #1351b4; padding: 10px 14px; cursor: pointer;
-            border-radius: 6px; font-weight: 600;
-        }
-        .tablink.active { background: #1351b4; color: #fff; border-color: #1351b4; }
-        .tabcontent { display: none; }
+        body { background: linear-gradient(180deg, #3d7d66 0%, #3d7d66 100%); }
+        .hero { width: 100%; display:flex; align-items: flex-start; justify-content: center; }
+        .panel { margin-top: 40px; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 8px; width: 95%; max-width: 640px; text-align: center; }
+        .uffs-logo { width: 280px; margin: 8px auto 16px auto; display:block; }
+        h4 { margin: 0 0 16px 0; font-weight: 500; color: #1a2e22; }
+        .tabs { display: flex; gap: 8px; margin: 8px 0 16px 0; justify-content: center; }
+        .tablink { background:#e5efe9; border:1px solid #b8d0c6; color:#1a2e22; padding:10px 14px; cursor:pointer; border-radius:6px; font-weight:600; }
+        .tablink.active { background:#7aa889; color:#fff; border-color:#7aa889; }
+        .tabcontent { display:none; }
+        .inp { width:100%; padding:14px 12px; border-radius:6px; border:1px solid #cfd8dc; margin:6px 0; font-size:16px; box-sizing: border-box; }
+        .btn { width:100%; background:#a9ba84; color:#1a2e22; border:none; border-radius:6px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; margin-top:8px; }
+        .btn:hover { filter: brightness(0.95); }
+        .btn-govbr { background:#1351b4; color:#fff; }
+        .links { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+        .links a { color:#1351b4; text-decoration: underline; }
+        .links small { color:#546e7a; }
     </style>
 </body>
 {%  endblock %}
