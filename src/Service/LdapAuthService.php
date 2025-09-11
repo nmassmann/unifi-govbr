@@ -14,6 +14,11 @@ class LdapAuthService
 
     public function authenticate(string $username, string $password): array
     {
+        if (!\function_exists('ldap_connect')) {
+            $this->logger->critical('Extensão PHP LDAP não está habilitada (função ldap_connect ausente).');
+            return [ 'success' => false, 'message' => 'Extensão PHP LDAP não habilitada no servidor' ];
+        }
+
         $host = $this->params->get('app.ldap.host');
         $port = (int) $this->params->get('app.ldap.port');
         $encryption = strtolower((string) $this->params->get('app.ldap.encryption'));
