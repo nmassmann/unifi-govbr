@@ -6,22 +6,65 @@
     <div class="container">
         <img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="Logo gov.br" class="govbr-logo">
         
-        <h3>Autenticação na rede Wi-Fi</h3>
-        
-        <p>Para acessar a rede sem fio, faça login com suas credenciais do gov.br. O acesso está sujeito aos termos de uso da rede.</p>
-        
-        <button class="login-btn" onclick="window.location.href='{{ path('login') }}'">
-            <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br">
-            Entrar com gov.br
-        </button>
-        
-        <button class="login-btn" style="margin-top: 12px;" onclick="window.location.href='{{ path('ldap_form') }}'">
-            Entrar com LDAP
-        </button>
-        
+        <h3>Autenticação na rede Wi‑Fi</h3>
+
+        <div class="tabs">
+            <button class="tablink active" data-tab="tab-ldap1">LDAP</button>
+            <button class="tablink" data-tab="tab-ldap2">LDAP (alternativo)</button>
+            <button class="tablink" data-tab="tab-govbr">gov.br</button>
+        </div>
+
+        <div id="tab-ldap1" class="tabcontent" style="display:block">
+            <p>Autentique‑se com suas credenciais institucionais (LDAP).</p>
+            <button class="login-btn" onclick="window.location.href='{{ path('ldap_form') }}'">
+                Entrar com LDAP
+            </button>
+        </div>
+
+        <div id="tab-ldap2" class="tabcontent">
+            <p>Segunda opção de autenticação LDAP. Utilize se a primeira não funcionar.</p>
+            <button class="login-btn" onclick="window.location.href='{{ path('ldap_form') }}'">
+                Entrar com LDAP (alternativo)
+            </button>
+        </div>
+
+        <div id="tab-govbr" class="tabcontent">
+            <p>Faça login com sua conta gov.br.</p>
+            <button class="login-btn" onclick="window.location.href='{{ path('login') }}'">
+                <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br">
+                Entrar com gov.br
+            </button>
+        </div>
+
         <div class="footer">
             Este serviço utiliza a plataforma de autenticação digital do governo federal.
         </div>
     </div>
+
+    <script>
+        (function() {
+            var links = document.querySelectorAll('.tablink');
+            links.forEach(function(btn){
+                btn.addEventListener('click', function(){
+                    var tab = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tablink').forEach(function(b){ b.classList.remove('active'); });
+                    document.querySelectorAll('.tabcontent').forEach(function(c){ c.style.display = 'none'; });
+                    this.classList.add('active');
+                    var el = document.getElementById(tab);
+                    if (el) el.style.display = 'block';
+                });
+            });
+        })();
+    </script>
+
+    <style>
+        .tabs { display: flex; gap: 8px; margin-bottom: 16px; justify-content: center; }
+        .tablink {
+            background: #e9eef7; border: 1px solid #c9d6f0; color: #1351b4; padding: 10px 14px; cursor: pointer;
+            border-radius: 6px; font-weight: 600;
+        }
+        .tablink.active { background: #1351b4; color: #fff; border-color: #1351b4; }
+        .tabcontent { display: none; }
+    </style>
 </body>
 {%  endblock %}
