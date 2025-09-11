@@ -77,5 +77,3 @@ class LdapAuthService
         return [ 'success' => true, 'display_name' => $displayName ];
     }
 }
-
-
