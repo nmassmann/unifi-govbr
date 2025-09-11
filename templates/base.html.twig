@@ -5,9 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Autenticação Wi-Fi - gov.br{% endblock %}</title>
         <style>
+            :root{
+                --green:#3d7d66;
+                --green-weak: rgba(61,125,102,.9);
+                --text-on-green:#f5f5f5;
+            }
+
             body {
                 font-family: 'Roboto', Arial, sans-serif;
-                background-color: #f5f5f5;
+                background: linear-gradient(180deg, var(--green) 0%, var(--green) 100%);
                 margin: 0;
                 padding: 0;
                 display: flex;
@@ -125,6 +131,45 @@
                 margin-right: 10px;
                 width: 20px;
             }
+            
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: var(--green-weak);
+                color: var(--text-on-green);
+                text-align: center;
+                padding: 15px;
+                font-size: 12px;
+                line-height: 1.4;
+                z-index: 1000;
+            }
+            
+            .footer a {
+                color: var(--text-on-green);
+                text-decoration: underline;
+            }
+            
+            .footer a:hover {
+                color: #ffffff;
+            }
+
+            /* Green theme components shared across pages */
+            .hero { width: 100%; display:flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+            .wrap { width:95%; max-width:640px; }
+            .logo-top { width:100%; display:flex; justify-content:center; margin-top: 32px; margin-bottom: 8px; }
+            .panel { margin-top: 0; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 8px; width: 100%; text-align: center; }
+            .uffs-logo { width: 320px; max-width: 90vw; margin: 0 auto; display:block; }
+            .tabs { display:flex; gap:10px; margin: 8px 0 16px 0; justify-content:center; }
+            .tabs.pills .tablink { background: var(--green); border:1px solid var(--green); color: var(--text-on-green); padding:8px 14px; cursor:pointer; border-radius:999px; font-weight:700; font-size:14px; transition: filter .2s ease, background .2s ease, color .2s ease; }
+            .tabs.pills .tablink:hover { filter: brightness(1.05); }
+            .tabs.pills .tablink.active { background:#f5f5f5; color: var(--green); border-color: var(--green); }
+            .tabcontent { display:none; }
+            .inp { width:100%; padding:14px 12px; border-radius:6px; border:1px solid #cfd8dc; margin:6px 0; font-size:16px; box-sizing: border-box; }
+            .btn { width:100%; background: var(--green); color: var(--text-on-green); border:none; border-radius:6px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; margin-top:8px; }
+            .btn:hover { filter: brightness(0.95); }
+            .btn-govbr { background: var(--green); color: var(--text-on-green); display:inline-block; text-decoration:none; text-align:center; }
         </style>
 
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -138,5 +183,27 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+        
+        <footer class="footer">
+            <p>
+                <a href="https://ati.uffs.edu.br/customer.pl">Suporte técnico</a><br>
+                Conectado ao portal externo - Unifi
+
+                <br>
+                <br>
+
+                Ao entrar você estará reconhecento e aceitando os termos da
+                <a href="https://www.uffs.edu.br/atos-normativos/portaria/gr/2018-0216" target="_blank">
+                    Política de Segurança da Informação e Comunicações da UFFS.
+                </a>
+
+                <br>
+                <br>
+
+                Diretoria de Infraestrutura de Informações - DITI
+                <br>
+                Secretaria Especial de Tecnologia e Informação - SETI
+            </p>
+        </footer>
     </body>
 </html>
