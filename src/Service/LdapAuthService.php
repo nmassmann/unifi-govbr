@@ -9,7 +9,8 @@ class LdapAuthService
 {
     public function __construct(
         private ParameterBagInterface $params,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
+        private LoggerInterface $authLogger
     ) {}
 
     public function authenticate(string $username, string $password): array

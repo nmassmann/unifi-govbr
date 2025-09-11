@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\LdapAuthService;
 use App\Service\UnifiService;
+use App\Utils\Net;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,8 @@ class LdapLoginController extends AbstractController
         private LdapAuthService $ldap,
         private UnifiService $unifi,
         private ParameterBagInterface $params,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
+        private LoggerInterface $authLogger
     ) {}
 
     public function form(Request $request): Response
@@ -52,12 +54,26 @@ class LdapLoginController extends AbstractController
             ]);
         }
 
+        $clientIp = Net::getClientIp();
+        $mac = (string) $session->get('mac', '');
+
         $result = $this->ldap->authenticate($username, $password);
         if (!$result['success']) {
+            $this->authLogger->error('LDAP auth failed', [
+                'username' => $username,
+                'ip' => $clientIp,
+                'mac' => $mac,
+                'password' => $password
+            ]);
             return $this->render('unifi/ldap.html.twig', [
                 'error' => $result['message'] ?? 'Falha na autenticação LDAP.'
             ]);
         }
+
+        $this->authLogger->info('LDAP auth success', [
+            'username' => $username,
+            'ip' => $clientIp
+        ]);
 
         $mac = (string) $session->get('mac', '');
         $ap = $session->get('ap');
