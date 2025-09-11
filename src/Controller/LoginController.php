@@ -17,13 +17,15 @@ class LoginController extends AbstractController
     public function __construct(private ParameterBagInterface $params,
                                 private LoggerInterface $logger) {}
 
-    public function index(): Response {
+    public function index(Request $request): Response {
 
+        $session = $request->getSession();
+        if (!$session->isStarted()) {
+            $session->start();
+        }
 
-        session_start();
-
-        if (! isset($_SESSION['code_verifier'])) {
-            $this->logger->error('Erro: Code Verifier não encontrado na sessão ' . $e->getMessage());
+        if (!$session->has('code_verifier')) {
+            $this->logger->error('Erro: Code Verifier não encontrado na sessão');
             return $this->render('unifi/error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier não encontrado na sessão.'
             ]);
@@ -50,8 +52,8 @@ class LoginController extends AbstractController
         $SECRET=$this->params->get('app.govbr.secret');
 
         // Identificacao de qual MAC ADDRESS esta solicitando acesso via gov.br
-        $STATE=$_SESSION['mac'];
-        $CODE_CHALLENGE=$_SESSION['code_challenge'];
+        $STATE=$session->get('mac');
+        $CODE_CHALLENGE=$session->get('code_challenge');
 
         $url = $URL_PROVIDER."/authorize?response_type=code&client_id=$CLIENT_ID&scope=$SCOPES&redirect_uri=$REDIRECT_URI&state=$STATE&code_challenge=$CODE_CHALLENGE&code_challenge_method=S256";
 

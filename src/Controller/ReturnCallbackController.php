@@ -39,12 +39,15 @@ class ReturnCallbackController extends AbstractController
         $this->conn=$unifiService;
     }
 
-    public function index(): Response {
+    public function index(Request $request): Response {
 
-        session_start();
+        $session = $request->getSession();
+        if (!$session->isStarted()) {
+            $session->start();
+        }
 
-        if (isset($_SESSION['code_verifier'])) {
-            $codeVerifier = $_SESSION['code_verifier'];
+        if ($session->has('code_verifier')) {
+            $codeVerifier = $session->get('code_verifier');
             // Use o $codeVerifier na requisição para o endpoint /token
         } else {
             $this->logger->error('Erro: Code Verifier não encontrado na sessão ');
@@ -150,12 +153,12 @@ class ReturnCallbackController extends AbstractController
                                 "phone_number_verified": true
                             }*/
 
-                            $macSessao = $_SESSION['mac'];
+                            $macSessao = $session->get('mac');
                             $macRetorno = $_GET['state'];
 
                             if ($macSessao === $macRetorno) {
                                
-                                $arr = $this->doAuth($_SESSION['ap'], $macSessao, $payloadData['sub']);
+                                $arr = $this->doAuth($session->get('ap'), $macSessao, $payloadData['sub']);
 
                                 if( $arr['success']){
 
