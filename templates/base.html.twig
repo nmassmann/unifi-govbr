@@ -169,21 +169,37 @@
             .inp { width:100%; padding:14px 12px; border-radius:6px; border:1px solid #cfd8dc; margin:6px 0; font-size:16px; box-sizing: border-box; }
             .btn { width:100%; background: var(--green); color: var(--text-on-green); border:none; border-radius:6px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; margin-top:8px; }
             .btn:hover { filter: brightness(0.95); }
-            .btn-govbr { background: var(--green); color: var(--text-on-green); display:inline-block; text-decoration:none; text-align:center; }
+            .btn-govbr { 
+                background: var(--green); 
+                color: var(--text-on-green); 
+                display:inline-block; 
+                text-decoration:none; 
+                text-align:center; 
+                border: 2px solid var(--green);
+                transition: all 0.2s ease;
+            }
+            .btn-govbr:hover { 
+                background: var(--text-on-green); 
+                color: var(--green); 
+                border-color: var(--green);
+            }
             
             /* Responsividade para mobile */
             @media (max-width: 768px) {
                 body {
                     height: auto;
                     min-height: 100vh;
-                    padding: 10px;
+                    padding: 15px;
                     padding-bottom: 120px; /* Espaço para o footer fixo */
+                    box-sizing: border-box;
                 }
                 
                 .wrap {
                     width: 100%;
                     max-width: 100%;
                     margin: 0;
+                    padding: 0 10px;
+                    box-sizing: border-box;
                 }
                 
                 .logo-top {
@@ -241,6 +257,15 @@
             }
             
             @media (max-width: 480px) {
+                body {
+                    padding: 10px;
+                    padding-bottom: 120px;
+                }
+                
+                .wrap {
+                    padding: 0 5px;
+                }
+                
                 .uffs-logo {
                     width: 240px;
                     max-width: 90vw;
@@ -248,6 +273,7 @@
                 
                 .panel {
                     padding: 16px 12px;
+                    margin: 0;
                 }
                 
                 .tabs.pills .tablink {
