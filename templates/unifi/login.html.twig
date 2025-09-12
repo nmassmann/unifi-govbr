@@ -16,10 +16,9 @@
                 <button class="tablink" data-tab="tab-govbr">gov.br</button>
                 <button class="tablink" data-tab="tab-ldap1">Servidor/Aluno</button>
             </div>
-            
-            <h4>Forneça suas credenciais:</h4>
 
             <div id="tab-ldap1" class="tabcontent" style="display:none">
+                <h4>Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -28,6 +27,7 @@
             </div>
 
             <div id="tab-ldap2" class="tabcontent" style="display:block">
+                <h4>Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -36,12 +36,15 @@
             </div>
 
             <div id="tab-govbr" class="tabcontent">
-                <img src="{{ asset('banner/govbr-colorido-b.png') }}" alt="gov.br" class="govbr-logo-tab" onerror="this.src='https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png'">
-                <p>Autentique-se com sua conta gov.br para acessar a rede.</p>
-                <a class="btn" href="{{ path('login') }}">Entrar com gov.br</a>
+               <img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="Logo gov.br" class="govbr-logo">
+               <p>Para acessar a rede sem fio, faça login com suas credenciais do gov.br. O acesso está sujeito aos termos de uso da rede.</p>
+        
+                <button class="btn" onclick="window.location.href='{{ path('login') }}'">
+                    <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br">
+                    Entrar com gov.br
+                </button>
+                <p> Este serviço utiliza a plataforma de autenticação digital do governo federal.
             </div>
-
-        </div>
         </div>
     </div>
 
@@ -80,5 +83,7 @@
             }
         }
     </style>
+
+    
 </body>
 {%  endblock %}
