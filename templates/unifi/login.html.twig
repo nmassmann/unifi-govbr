@@ -18,7 +18,7 @@
             </div>
 
             <div id="tab-ldap1" class="tabcontent" style="display:none">
-                <h4>Forneça suas credenciais:</h4>
+                <h4 style="text-align:justify">Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -27,7 +27,7 @@
             </div>
 
             <div id="tab-ldap2" class="tabcontent" style="display:block">
-                <h4>Forneça suas credenciais:</h4>
+                <h4 style="text-align:justify">Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -37,7 +37,7 @@
 
             <div id="tab-govbr" class="tabcontent">
                <img src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png" alt="Logo gov.br" class="govbr-logo">
-               <br>Faça login com suas credenciais do gov.br. O acesso está sujeito aos termos de uso da rede.
+               <br>Faça login com suas credenciais do gov.br.
                 <a class="btn" href="{{ path('login') }}">Entrar com gov.br</a>
                 <p> Este serviço utiliza a plataforma de autenticação digital do governo federal.                
                 
