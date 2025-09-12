@@ -9,6 +9,8 @@ use Psr\Log\LoggerInterface;
 
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoginController extends AbstractController
@@ -58,13 +60,10 @@ class LoginController extends AbstractController
         $url = $URL_PROVIDER."/authorize?response_type=code&client_id=$CLIENT_ID&scope=$SCOPES&redirect_uri=$REDIRECT_URI&state=$STATE&code_challenge=$CODE_CHALLENGE&code_challenge_method=S256";
 
         $this->logger->info('Verificação de segurança executada');
-        $client = HttpClient::create([
-            'headers' => ['User-Agent' => 'Unifi-govbr/1.0'],
-        ]);
 
-        //$response = $client->request('GET', $url);
-        header('Location: '.$url, true, 302);
-        exit;
+        return $this->render('unifi/govbr_login.html.twig', [
+            'govbr_url' => $url
+        ]);
 
     }
 }

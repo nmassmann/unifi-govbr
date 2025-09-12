@@ -170,6 +170,101 @@
             .btn { width:100%; background: var(--green); color: var(--text-on-green); border:none; border-radius:6px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; margin-top:8px; }
             .btn:hover { filter: brightness(0.95); }
             .btn-govbr { background: var(--green); color: var(--text-on-green); display:inline-block; text-decoration:none; text-align:center; }
+            
+            /* Responsividade para mobile */
+            @media (max-width: 768px) {
+                body {
+                    height: auto;
+                    min-height: 100vh;
+                    padding: 10px;
+                    padding-bottom: 120px; /* Espaço para o footer fixo */
+                }
+                
+                .wrap {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0;
+                }
+                
+                .logo-top {
+                    margin-top: 20px;
+                    margin-bottom: 16px;
+                }
+                
+                .uffs-logo {
+                    width: 280px;
+                    max-width: 85vw;
+                }
+                
+                .panel {
+                    padding: 20px 16px;
+                    margin-top: 0;
+                }
+                
+                h1, h2, h3, h4 {
+                    font-size: 20px;
+                    margin-bottom: 16px;
+                }
+                
+                .tabs {
+                    gap: 6px;
+                    margin: 12px 0 20px 0;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                
+                .tabs.pills .tablink {
+                    padding: 10px 12px;
+                    font-size: 13px;
+                    min-width: 80px;
+                }
+                
+                .inp {
+                    padding: 12px 10px;
+                    font-size: 16px; /* Evita zoom no iOS */
+                }
+                
+                .btn {
+                    padding: 12px;
+                    font-size: 16px;
+                }
+                
+                .footer {
+                    font-size: 11px;
+                    padding: 12px 8px;
+                    line-height: 1.3;
+                }
+                
+                .footer p {
+                    margin: 0;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .uffs-logo {
+                    width: 240px;
+                    max-width: 90vw;
+                }
+                
+                .panel {
+                    padding: 16px 12px;
+                }
+                
+                .tabs.pills .tablink {
+                    padding: 8px 10px;
+                    font-size: 12px;
+                    min-width: 70px;
+                }
+                
+                h1, h2, h3, h4 {
+                    font-size: 18px;
+                }
+                
+                .footer {
+                    font-size: 10px;
+                    padding: 10px 6px;
+                }
+            }
         </style>
 
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
