@@ -81,7 +81,7 @@ p {
     padding: 10px;
     font-size: 10px;
     line-height: 1.2;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     max-width: 640px;
 }
@@ -526,7 +526,7 @@ h4 {
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s;
-    margin: 8px 0 15px 0;
+    margin: 8px 0 25px 0;
     border: 2px solid var(--green);
     text-decoration: none;
 }
