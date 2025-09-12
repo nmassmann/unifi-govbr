@@ -13,6 +13,7 @@
 
             <div class="tabs pills">
                 <button class="tablink active" data-tab="tab-ldap2">Visitante</button>
+                <button class="tablink" data-tab="tab-voucher">Voucher</button>
                 <button class="tablink" data-tab="tab-govbr">
                     <img src="https://www.gov.br/++theme++padrao_govbr/favicons/favicon-32x32.png" alt="Ícone gov.br" class="tab-icon">
                     gov.br
@@ -31,24 +32,10 @@
 
             <div id="tab-ldap2" class="tabcontent active">
                 <h4 class="text-justify">Forneça suas credenciais:</h4>
-                <form method="post" action="{{ path('ldap_auth') }}" id="visitante-form">
+                <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
-                    
-                    <div id="voucher" style="display: none;">
-                        <div class="divider">
-                            <span>ou</span>
-                        </div>
-
-                        <div class="field pass-field">
-                            <input id="voucher-input" type="text" name="voucher" placeholder="Voucher" autocapitalize="off" class="inp">
-                        </div>
-                    </div>
-
-                    <div class="actions">
-                        <button id="submit-action" type="submit" class="btn btnform">Entrar</button>
-                        <div id="forgot-password"></div>
-                    </div>
+                    <button type="submit" class="btn btnform">Entrar</button>
                 </form>
                 
                 <div class="tabs-content-footer">
@@ -62,6 +49,16 @@
                         <a href="https://cav.uffs.edu.br/?backToCaptive=true" class="signup-button">Criar cadastro</a>
                     </div>
                 </div>
+            </div>
+
+            <div id="tab-voucher" class="tabcontent">
+                <h4 class="text-justify">Digite seu voucher:</h4>
+                <form method="post" action="{{ path('ldap_auth') }}" id="voucher-form">
+                    <input type="hidden" name="username" id="voucher-username" />
+                    <input type="hidden" name="password" id="voucher-password" />
+                    <input type="text" name="voucher" placeholder="Código do voucher" autocomplete="off" required class="inp" id="voucher-input" />
+                    <button type="submit" class="btn btnform">Entrar</button>
+                </form>
             </div>
 
             <div id="tab-govbr" class="tabcontent">
@@ -90,50 +87,18 @@
                 });
             });
             
-            // Controle do campo voucher para visitantes
-            var visitanteForm = document.getElementById('visitante-form');
-            var usernameField = visitanteForm.querySelector('input[name="username"]');
-            var passwordField = visitanteForm.querySelector('input[name="password"]');
-            var voucherField = document.getElementById('voucher');
+            // Controle do formulário de voucher
+            var voucherForm = document.getElementById('voucher-form');
             var voucherInput = document.getElementById('voucher-input');
-            var submitButton = document.getElementById('submit-action');
+            var voucherUsername = document.getElementById('voucher-username');
+            var voucherPassword = document.getElementById('voucher-password');
             
-            // Função para alternar entre login normal e voucher
-            function toggleVoucherMode() {
-                if (voucherInput.value.trim() !== '') {
-                    // Modo voucher ativo
-                    usernameField.required = false;
-                    passwordField.required = false;
-                    voucherInput.required = true;
-                    usernameField.value = voucherInput.value;
-                    passwordField.value = voucherInput.value;
-                } else {
-                    // Modo login normal
-                    usernameField.required = true;
-                    passwordField.required = true;
-                    voucherInput.required = false;
-                }
-            }
-            
-            // Mostrar/ocultar campo voucher baseado no foco
-            usernameField.addEventListener('focus', function() {
-                voucherField.style.display = 'block';
-            });
-            
-            passwordField.addEventListener('focus', function() {
-                voucherField.style.display = 'block';
-            });
-            
-            // Controlar envio do formulário
-            visitanteForm.addEventListener('submit', function(e) {
-                toggleVoucherMode();
-            });
-            
-            // Atualizar quando voucher for digitado
-            voucherInput.addEventListener('input', function() {
-                if (this.value.trim() !== '') {
-                    usernameField.value = this.value;
-                    passwordField.value = this.value;
+            // Quando o formulário de voucher for enviado, copiar o voucher para username e password
+            voucherForm.addEventListener('submit', function(e) {
+                var voucherValue = voucherInput.value.trim();
+                if (voucherValue !== '') {
+                    voucherUsername.value = voucherValue;
+                    voucherPassword.value = voucherValue;
                 }
             });
         })();

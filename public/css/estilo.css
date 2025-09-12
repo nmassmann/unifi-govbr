@@ -289,16 +289,16 @@ h4 {
     }
     
     .tabs {
-        gap: 6px;
+        gap: 4px;
         margin: 12px 0 20px 0;
         flex-wrap: wrap;
         justify-content: center;
     }
     
     .tabs.pills .tablink {
-        padding: 12px 14px;
-        font-size: 16px;
-        min-width: 90px;
+        padding: 10px 12px;
+        font-size: 15px;
+        min-width: 80px;
     }
     
     .inp {
@@ -352,9 +352,9 @@ h4 {
     }
     
     .tabs.pills .tablink {
-        padding: 10px 12px;
-        font-size: 15px;
-        min-width: 80px;
+        padding: 8px 10px;
+        font-size: 14px;
+        min-width: 70px;
     }
     
     h1, h2, h3, h4 {
@@ -535,18 +535,20 @@ h4 {
 .signup-button {
     display: inline-block;
     background-color: var(--green);
-    color: var(--text-on-green);
+    color: white;
     padding: 12px 24px;
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
     margin-top: 10px;
+    border: 2px solid var(--green);
 }
 
 .signup-button:hover {
-    background-color: var(--green-weak);
-    color: var(--text-on-green);
+    background-color: white;
+    color: var(--green);
+    border-color: var(--green);
 }
 
 .actions {
