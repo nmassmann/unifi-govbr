@@ -9,6 +9,7 @@ body {
     background: linear-gradient(180deg, var(--green) 0%, var(--green) 100%);
     margin: 0;
     padding: 0;
+    padding-bottom: 80px; /* Espaço para o footer */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,8 +155,9 @@ p {
     flex-direction: column; 
     align-items: center; 
     justify-content: flex-start; 
-    min-height: calc(100vh - 150x); /* Altura mínima considerando o footer */
+    min-height: calc(100vh - 200px); /* Altura mínima considerando o footer */
     box-sizing: border-box;
+    margin-bottom: 20px; /* Espaço adicional antes do footer */
 }
 .wrap { 
     width:95%; 
@@ -242,7 +244,7 @@ h4 {
         height: auto;
         min-height: 100vh;
         padding: 15px;
-        padding-bottom: 120px; /* Espaço para o footer fixo */
+        padding-bottom: 140px; /* Espaço para o footer fixo */
         box-sizing: border-box;
     }
     
@@ -282,19 +284,20 @@ h4 {
     }
     
     .tabs.pills .tablink {
-        padding: 10px 12px;
-        font-size: 13px;
-        min-width: 80px;
+        padding: 12px 14px;
+        font-size: 16px;
+        min-width: 90px;
     }
     
     .inp {
-        padding: 12px 10px;
-        font-size: 16px; /* Evita zoom no iOS */
+        padding: 14px 12px;
+        font-size: 18px; /* Evita zoom no iOS e melhora legibilidade */
     }
     
     .btn {
-        padding: 12px;
-        font-size: 16px;
+        padding: 14px;
+        font-size: 18px;
+        font-weight: bold;
     }
     
     .footer {
@@ -308,8 +311,9 @@ h4 {
     }
     
     .hero {
-        min-height: calc(100vh - 140px);
+        min-height: calc(100vh - 180px);
         padding-bottom: 20px;
+        margin-bottom: 30px; /* Espaço adicional em mobile */
     }
 }
 
@@ -343,7 +347,7 @@ h4 {
 @media (max-width: 480px) {
     body {
         padding: 10px;
-        padding-bottom: 120px;
+        padding-bottom: 130px;
     }
     
     .wrap {
@@ -361,13 +365,24 @@ h4 {
     }
     
     .tabs.pills .tablink {
-        padding: 8px 10px;
-        font-size: 12px;
-        min-width: 70px;
+        padding: 10px 12px;
+        font-size: 15px;
+        min-width: 80px;
     }
     
     h1, h2, h3, h4 {
         font-size: 18px;
+    }
+    
+    .inp {
+        padding: 12px 10px;
+        font-size: 17px;
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 17px;
+        font-weight: bold;
     }
     
     .footer {
@@ -376,7 +391,8 @@ h4 {
     }
     
     .hero {
-        min-height: calc(100vh - 120px);
+        min-height: calc(100vh - 150px);
+        margin-bottom: 25px; /* Espaço adicional em telas pequenas */
     }
 }
 
