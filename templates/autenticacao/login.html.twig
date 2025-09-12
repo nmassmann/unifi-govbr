@@ -17,8 +17,8 @@
                 <button class="tablink" data-tab="tab-ldap1">Servidor/Aluno</button>
             </div>
 
-            <div id="tab-ldap1" class="tabcontent" style="display:none">
-                <h4 style="text-align:justify">Forneça suas credenciais:</h4>
+            <div id="tab-ldap1" class="tabcontent">
+                <h4 class="text-justify">Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -26,8 +26,8 @@
                 </form>
             </div>
 
-            <div id="tab-ldap2" class="tabcontent" style="display:block">
-                <h4 style="text-align:justify">Forneça suas credenciais:</h4>
+            <div id="tab-ldap2" class="tabcontent active">
+                <h4 class="text-justify">Forneça suas credenciais:</h4>
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -63,25 +63,6 @@
         })();
     </script>
 
-    <style>
-        h4 { margin: 0 0 16px 0; font-weight: 500; color: #1a2e22; }
-        .govbr-logo-tab { width: 180px; margin: 8px auto 12px auto; display:block; }
-        
-        /* Responsividade específica para a página de login */
-        @media (max-width: 768px) {
-            .govbr-logo-tab {
-                width: 150px;
-                margin: 6px auto 10px auto;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .govbr-logo-tab {
-                width: 120px;
-                margin: 4px auto 8px auto;
-            }
-        }
-    </style>
 
     
 </body>

@@ -51,7 +51,7 @@ class ReturnCallbackController extends AbstractController
             // Use o $codeVerifier na requisição para o endpoint /token
         } else {
             $this->logger->error('Erro: Code Verifier não encontrado na sessão ');
-            return $this->render('unifi/error.html.twig', [
+            return $this->render('autenticacao/error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier não encontrado na sessão.'
             ]);
         }
@@ -92,7 +92,7 @@ class ReturnCallbackController extends AbstractController
             // Verifica erros
             if (curl_errno($ch)) {
                 $this->logger->error('Erro na requisição ' . curl_error($ch));
-                return $this->render('unifi/error.html.twig', [
+                return $this->render('autenticacao/error.html.twig', [
                     'mensagem' => "Erro na requisição: " . curl_error($ch)
                 ]);
                 
@@ -124,7 +124,7 @@ class ReturnCallbackController extends AbstractController
                         
                             if (curl_errno($ch)) {
                                 $this->logger->error('Erro ao obter a foto: '.curl_error($ch));
-                                return $this->render('unifi/error.html.twig', [
+                                return $this->render('autenticacao/error.html.twig', [
                                     'mensagem' => 'Erro ao obter a foto: '.curl_error($ch)
                                 ]);
 
@@ -163,7 +163,7 @@ class ReturnCallbackController extends AbstractController
                                 if( $arr['success']){
 
                                     $this->logger->info('Cliente '.$payloadData['sub'].' conectado.');
-                                    return $this->render('unifi/success.html.twig', [
+                                    return $this->render('autenticacao/success.html.twig', [
                                         'url_logout' => $this->params->get('app.url_logout'),
                                         'url_provider' => $this->params->get('app.govbr.url_provider')
                                     ]);
@@ -171,7 +171,7 @@ class ReturnCallbackController extends AbstractController
                                 }else{
                                     
                                     $this->logger->error('Erro: ' . $arr['message']);
-                                    return $this->render('unifi/error.html.twig', [
+                                    return $this->render('autenticacao/error.html.twig', [
                                         'mensagem' => $arr['message']
                                     ]);
                                 }
@@ -206,7 +206,7 @@ class ReturnCallbackController extends AbstractController
             
                             if (curl_errno($ch)) {
                                 $this->logger->error('Erro na requisição a API ' . $e->getMessage());
-                                return $this->render('unifi/error.html.twig', [
+                                return $this->render('autenticacao/error.html.twig', [
                                     'mensagem' => 'Erro na requisição à API: '.curl_error($ch)
                                 ]);
                         
@@ -222,14 +222,14 @@ class ReturnCallbackController extends AbstractController
                         
                     } else {
                         $this->logger->error('Erro: o access token não é um JWT válido ');
-                        return $this->render('unifi/error.html.twig', [
+                        return $this->render('autenticacao/error.html.twig', [
                              'mensagem' => 'O Access Token não é um JWT válido.'
                         ]);
             
                     }
                 } else {
                     $this->logger->error('Erro: access token não foi recebido ');
-                    return $this->render('unifi/error.html.twig', [
+                    return $this->render('autenticacao/error.html.twig', [
                         'mensagem' => 'Access Token não foi recebido'
                     ]);
                 }
@@ -239,7 +239,7 @@ class ReturnCallbackController extends AbstractController
             curl_close($ch);
         } else {
             $this->logger->error('Erro: nenhum código foi recebido. ' );
-            return $this->render('unifi/error.html.twig', [
+            return $this->render('autenticacao/error.html.twig', [
                 'mensagem' => 'Erro: Nenhum código foi recebido.'
             ]);
         }

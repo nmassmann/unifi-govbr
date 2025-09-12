@@ -37,7 +37,7 @@ class LogoutController extends AbstractController
 
         if (!$session->has('code_verifier') && !$session->has('mac')) {
             $this->logger->error('Erro: Code Verifier e/ou mac não encontrado na sessão');
-            return $this->render('unifi/error.html.twig', [
+            return $this->render('autenticacao/error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier e/ou mac não encontrado na sessão.'
             ]);
         }
@@ -51,7 +51,7 @@ class LogoutController extends AbstractController
                 $session->invalidate();   
 
                 $this->logger->info('Cliente desconectado com sucesso.');
-                    return $this->render('unifi/logout.html.twig');
+                    return $this->render('autenticacao/logout.html.twig');
 
             }else{
                 $this->logger->error('Não foi possível desautorizar o usuario na controladora unifi: ');

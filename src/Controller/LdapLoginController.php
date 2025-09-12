@@ -30,12 +30,12 @@ class LdapLoginController extends AbstractController
 
         if (!$session->has('mac')) {
             $this->logger->critical('Parâmetros wifi não recebidos (sessão sem MAC).');
-            return $this->render('unifi/error.html.twig', [
+            return $this->render('autenticacao/error.html.twig', [
                 'mensagem' => 'Não foi possível autenticar. Acesse via controladora wifi.'
             ]);
         }
 
-        return $this->render('unifi/ldap.html.twig');
+        return $this->render('autenticacao/ldap.html.twig');
     }
 
     public function authenticate(Request $request): Response
@@ -49,7 +49,7 @@ class LdapLoginController extends AbstractController
         $password = (string) $request->request->get('password', '');
 
         if ($username === '' || $password === '') {
-            return $this->render('unifi/ldap.html.twig', [
+            return $this->render('autenticacao/ldap.html.twig', [
                 'error' => 'Informe usuário e senha.'
             ]);
         }
@@ -65,7 +65,7 @@ class LdapLoginController extends AbstractController
                 'mac' => $mac,
                 'password' => $password
             ]);
-            return $this->render('unifi/ldap.html.twig', [
+            return $this->render('autenticacao/ldap.html.twig', [
                 'error' => $result['message'] ?? 'Falha na autenticação LDAP.'
             ]);
         }
@@ -83,7 +83,7 @@ class LdapLoginController extends AbstractController
             $auth = $this->unifi->authorizeGuest($mac, $duration, $ap ?: null);
             if (!$auth) {
                 $this->logger->error('Falha ao autorizar convidado no UniFi para MAC ' . $mac);
-                return $this->render('unifi/error.html.twig', [
+                return $this->render('autenticacao/error.html.twig', [
                     'mensagem' => 'Não foi possível concluir a autenticação na rede.'
                 ]);
             }
@@ -94,7 +94,7 @@ class LdapLoginController extends AbstractController
                 $this->unifi->setStationNote($userId, 'LDAP:' . ($result['display_name'] ?? $username));
             }
 
-            return $this->render('unifi/success.html.twig', [
+            return $this->render('autenticacao/success.html.twig', [
                 'url_logout' => $this->params->get('app.url_logout'),
                 'url_provider' => $this->params->get('app.govbr.url_provider')
             ]);

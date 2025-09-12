@@ -28,7 +28,7 @@ class LoginController extends AbstractController
 
         if (!$session->has('code_verifier')) {
             $this->logger->error('Erro: Code Verifier não encontrado na sessão');
-            return $this->render('unifi/error.html.twig', [
+            return $this->render('autenticacao/error.html.twig', [
                 'mensagem' => 'Erro: Code Verifier não encontrado na sessão.'
             ]);
         }
@@ -61,7 +61,7 @@ class LoginController extends AbstractController
 
         $this->logger->info('Verificação de segurança executada');
 
-        return $this->render('unifi/govbr_login.html.twig', [
+        return $this->render('autenticacao/govbr_login.html.twig', [
             'govbr_url' => $url
         ]);
 
