@@ -205,6 +205,13 @@ p {
     color: var(--green); 
     border-color: var(--green); 
 }
+
+.tab-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
 .tabcontent { 
     display:none; 
 }
@@ -424,14 +431,14 @@ h4 {
 }
 
 /* Estilos para links de navegação */
-.panel a {
+.panel a:not(.btn) {
     color: var(--green);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
-.panel a:hover {
+.panel a:not(.btn):hover {
     color: var(--green-weak);
     text-decoration: underline;
 }
