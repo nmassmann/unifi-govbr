@@ -9,7 +9,7 @@ body {
     background: linear-gradient(180deg, var(--green) 0%, var(--green) 100%);
     margin: 0;
     padding: 0;
-    padding-bottom: 80px; /* Espaço para o footer */
+    padding-bottom: 100px; /* Aumentado para evitar sobreposição */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,9 +155,9 @@ p {
     flex-direction: column; 
     align-items: center; 
     justify-content: flex-start; 
-    min-height: calc(100vh - 200px); /* Altura mínima considerando o footer */
+    min-height: calc(100vh - 220px); /* Altura mínima considerando o footer */
     box-sizing: border-box;
-    margin-bottom: 20px; /* Espaço adicional antes do footer */
+    margin-bottom: 30px; /* Aumentado para evitar sobreposição */
 }
 .wrap { 
     width:95%; 
@@ -505,8 +505,8 @@ h4 {
 
 /* Estilos para rodapé das abas */
 .tabs-content-footer {
-    margin-top: 30px;
-    padding-top: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px solid #eee;
 }
 
@@ -518,7 +518,7 @@ h4 {
     font-size: 16px;
     font-weight: 500;
     color: #1a2e22;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .message.warn {
@@ -527,7 +527,7 @@ h4 {
     color: #856404;
     padding: 12px;
     border-radius: 4px;
-    margin: 15px 0;
+    margin: 0;
     font-size: 14px;
     line-height: 1.4;
 }
@@ -541,7 +541,7 @@ h4 {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
-    margin-top: 10px;
+    margin: 8px 0 15px 0;
     border: 2px solid var(--green);
 }
 
