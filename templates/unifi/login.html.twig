@@ -9,19 +9,21 @@
             <img src="{{ asset('banner/uffs-logo-branca.png') }}" alt="Universidade Federal da Fronteira Sul" class="uffs-logo" onerror="this.style.display='none'">
         </div>
         <div class="panel">
-            <h4>Forneça suas credenciais para acessar a rede da UFFS</h4>
+            <h4>Escolha a forma de Autenticação:</h4>
 
             <div class="tabs pills">
                 <button class="tablink active" data-tab="tab-ldap2">Visitante</button>
                 <button class="tablink" data-tab="tab-govbr">gov.br</button>
                 <button class="tablink" data-tab="tab-ldap1">Servidor/Aluno</button>
             </div>
+            
+            <h4>Forneça suas credenciais:</h4>
 
             <div id="tab-ldap1" class="tabcontent" style="display:none">
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
-                    <button type="submit" class="btn">Entrar</button>
+                    <button type="submit" class="btn btnform">Entrar</button>
                 </form>
             </div>
 
@@ -29,7 +31,7 @@
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
-                    <button type="submit" class="btn">Entrar</button>
+                    <button type="submit" class="btn btnform">Entrar</button>
                 </form>
             </div>
 
