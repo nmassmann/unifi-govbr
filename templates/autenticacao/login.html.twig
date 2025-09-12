@@ -41,7 +41,7 @@
                 <div class="tabs-content-footer">
                     <div id="signup" class="signup-wrapper">
                         <p class="signup-title">Ainda não é cadastrado?</p>
-                        <a href="https://cav.uffs.edu.br/?backToCaptive=true" class="signup-button">Criar cadastro</a>
+                        <a href="https://cav.uffs.edu.br/?backToCaptive=true" class="btn">Criar cadastro</a>
                         <p class="message warn">
                             <strong>Atenção:</strong>
                             Visitantes precisarão ter seu cadastro aprovado antes de ter acesso à rede da UFFS. Para isso, deverão
@@ -53,10 +53,8 @@
 
             <div id="tab-voucher" class="tabcontent">
                 <h4 class="text-justify">Digite seu voucher:</h4>
-                <form method="post" action="{{ path('ldap_auth') }}" id="voucher-form">
-                    <input type="hidden" name="username" id="voucher-username" />
-                    <input type="hidden" name="password" id="voucher-password" />
-                    <input type="text" name="voucher" placeholder="Código do voucher" autocomplete="off" required class="inp" id="voucher-input" />
+                <form method="post" action="{{ path('ldap_auth') }}">
+                    <input type="text" name="voucher" placeholder="Código do voucher" autocomplete="off" required class="inp" />
                     <button type="submit" class="btn btnform">Entrar</button>
                 </form>
             </div>
@@ -85,21 +83,6 @@
                     var el = document.getElementById(tab);
                     if (el) el.style.display = 'block';
                 });
-            });
-            
-            // Controle do formulário de voucher
-            var voucherForm = document.getElementById('voucher-form');
-            var voucherInput = document.getElementById('voucher-input');
-            var voucherUsername = document.getElementById('voucher-username');
-            var voucherPassword = document.getElementById('voucher-password');
-            
-            // Quando o formulário de voucher for enviado, copiar o voucher para username e password
-            voucherForm.addEventListener('submit', function(e) {
-                var voucherValue = voucherInput.value.trim();
-                if (voucherValue !== '') {
-                    voucherUsername.value = voucherValue;
-                    voucherPassword.value = voucherValue;
-                }
             });
         })();
     </script>
