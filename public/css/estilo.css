@@ -238,13 +238,25 @@ h4 {
     display:block; 
 }
 
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+    body {
+        padding-bottom: 100px; /* Reduz espaço gradualmente */
+    }
+    
+    .hero {
+        min-height: calc(100vh - 220px);
+        margin-bottom: 15px;
+    }
+}
+
 /* Responsividade para mobile */
 @media (max-width: 768px) {
     body {
         height: auto;
         min-height: 100vh;
         padding: 15px;
-        padding-bottom: 140px; /* Espaço para o footer fixo */
+        padding-bottom: 120px; /* Reduzido de 140px */
         box-sizing: border-box;
     }
     
@@ -317,37 +329,12 @@ h4 {
     }
 }
 
-/* Media query específica para a faixa problemática (768px a 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    body {
-        padding-bottom: 140px; /* Mais espaço para o footer */
-    }
-    
-    .hero {
-        min-height: calc(100vh - 180px);
-        padding-bottom: 60px;
-    }
-    
-    .wrap {
-        margin: 60px 0;
-    }
-    
-    /* Alternativa: transformar o footer em relativo em vez de fixo para estas resoluções */
-    .footer {
-        position: relative;
-        margin-top: 40px;
-    }
-    
-    body {
-        padding-bottom: 0;
-        display: block;
-    }
-}
+/* Media query para telas médias (769px a 1024px) - removida duplicação */
 
 @media (max-width: 480px) {
     body {
         padding: 10px;
-        padding-bottom: 130px;
+        padding-bottom: 110px; /* Reduzido de 130px */
     }
     
     .wrap {
@@ -391,8 +378,20 @@ h4 {
     }
     
     .hero {
-        min-height: calc(100vh - 150px);
-        margin-bottom: 25px; /* Espaço adicional em telas pequenas */
+        min-height: calc(100vh - 130px);
+        margin-bottom: 20px; /* Reduzido de 25px */
+    }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 360px) {
+    body {
+        padding-bottom: 100px; /* Espaço mínimo para o footer */
+    }
+    
+    .hero {
+        min-height: calc(100vh - 120px);
+        margin-bottom: 15px;
     }
 }
 
@@ -472,6 +471,86 @@ h4 {
 /* Estilos para conteúdo de abas */
 .tabcontent.active {
     display: block;
+}
+
+/* Estilos para campo voucher */
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.divider span {
+    background-color: white;
+    padding: 0 15px;
+    color: #666;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.field.pass-field {
+    margin: 10px 0;
+}
+
+/* Estilos para rodapé das abas */
+.tabs-content-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.signup-wrapper {
+    text-align: center;
+}
+
+.signup-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a2e22;
+    margin-bottom: 10px;
+}
+
+.message.warn {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.signup-button {
+    display: inline-block;
+    background-color: var(--green);
+    color: var(--text-on-green);
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.signup-button:hover {
+    background-color: var(--green-weak);
+    color: var(--text-on-green);
+}
+
+.actions {
+    margin-top: 20px;
 }
 
 /* Responsividade adicional para componentes específicos */

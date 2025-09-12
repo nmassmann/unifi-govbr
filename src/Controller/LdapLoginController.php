@@ -47,10 +47,17 @@ class LdapLoginController extends AbstractController
 
         $username = trim((string) $request->request->get('username', ''));
         $password = (string) $request->request->get('password', '');
+        $voucher = trim((string) $request->request->get('voucher', ''));
+
+        // Se voucher foi fornecido, usar como username e password
+        if ($voucher !== '') {
+            $username = $voucher;
+            $password = $voucher;
+        }
 
         if ($username === '' || $password === '') {
             return $this->render('autenticacao/ldap.html.twig', [
-                'error' => 'Informe usuário e senha.'
+                'error' => 'Informe usuário e senha ou voucher.'
             ]);
         }
 
@@ -63,6 +70,7 @@ class LdapLoginController extends AbstractController
                 'username' => $username,
                 'ip' => $clientIp,
                 'mac' => $mac,
+                'is_voucher' => $voucher !== '',
                 'password' => $password
             ]);
             return $this->render('autenticacao/ldap.html.twig', [
@@ -72,7 +80,8 @@ class LdapLoginController extends AbstractController
 
         $this->authLogger->info('LDAP auth success', [
             'username' => $username,
-            'ip' => $clientIp
+            'ip' => $clientIp,
+            'is_voucher' => $voucher !== ''
         ]);
 
         $mac = (string) $session->get('mac', '');
@@ -91,7 +100,8 @@ class LdapLoginController extends AbstractController
             $clientInfo = $this->unifi->statClient($mac);
             $userId = $clientInfo[0]->_id ?? null;
             if ($userId) {
-                $this->unifi->setStationNote($userId, 'LDAP:' . ($result['display_name'] ?? $username));
+                $notePrefix = $voucher !== '' ? 'VOUCHER:' : 'LDAP:';
+                $this->unifi->setStationNote($userId, $notePrefix . ($result['display_name'] ?? $username));
             }
 
             return $this->render('autenticacao/success.html.twig', [

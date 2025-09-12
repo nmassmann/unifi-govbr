@@ -31,11 +31,37 @@
 
             <div id="tab-ldap2" class="tabcontent active">
                 <h4 class="text-justify">Forneça suas credenciais:</h4>
-                <form method="post" action="{{ path('ldap_auth') }}">
+                <form method="post" action="{{ path('ldap_auth') }}" id="visitante-form">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
-                    <button type="submit" class="btn btnform">Entrar</button>
+                    
+                    <div id="voucher" style="display: none;">
+                        <div class="divider">
+                            <span>ou</span>
+                        </div>
+
+                        <div class="field pass-field">
+                            <input id="voucher-input" type="text" name="voucher" placeholder="Voucher" autocapitalize="off" class="inp">
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="submit-action" type="submit" class="btn btnform">Entrar</button>
+                        <div id="forgot-password"></div>
+                    </div>
                 </form>
+                
+                <div class="tabs-content-footer">
+                    <div id="signup" class="signup-wrapper">
+                        <p class="signup-title">Ainda não é cadastrado?</p>
+                        <p class="message warn">
+                            <strong>Atenção:</strong>
+                            Visitantes precisarão ter seu cadastro aprovado antes de ter acesso à rede da UFFS. Para isso, deverão
+                            buscar um servidor da Universidade.
+                        </p>
+                        <a href="https://cav.uffs.edu.br/?backToCaptive=true" class="signup-button">Criar cadastro</a>
+                    </div>
+                </div>
             </div>
 
             <div id="tab-govbr" class="tabcontent">
@@ -62,6 +88,53 @@
                     var el = document.getElementById(tab);
                     if (el) el.style.display = 'block';
                 });
+            });
+            
+            // Controle do campo voucher para visitantes
+            var visitanteForm = document.getElementById('visitante-form');
+            var usernameField = visitanteForm.querySelector('input[name="username"]');
+            var passwordField = visitanteForm.querySelector('input[name="password"]');
+            var voucherField = document.getElementById('voucher');
+            var voucherInput = document.getElementById('voucher-input');
+            var submitButton = document.getElementById('submit-action');
+            
+            // Função para alternar entre login normal e voucher
+            function toggleVoucherMode() {
+                if (voucherInput.value.trim() !== '') {
+                    // Modo voucher ativo
+                    usernameField.required = false;
+                    passwordField.required = false;
+                    voucherInput.required = true;
+                    usernameField.value = voucherInput.value;
+                    passwordField.value = voucherInput.value;
+                } else {
+                    // Modo login normal
+                    usernameField.required = true;
+                    passwordField.required = true;
+                    voucherInput.required = false;
+                }
+            }
+            
+            // Mostrar/ocultar campo voucher baseado no foco
+            usernameField.addEventListener('focus', function() {
+                voucherField.style.display = 'block';
+            });
+            
+            passwordField.addEventListener('focus', function() {
+                voucherField.style.display = 'block';
+            });
+            
+            // Controlar envio do formulário
+            visitanteForm.addEventListener('submit', function(e) {
+                toggleVoucherMode();
+            });
+            
+            // Atualizar quando voucher for digitado
+            voucherInput.addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    usernameField.value = this.value;
+                    passwordField.value = this.value;
+                }
             });
         })();
     </script>
