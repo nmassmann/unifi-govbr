@@ -11,7 +11,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
     color: #333;
@@ -78,7 +78,7 @@ p {
     background-color: var(--green-weak);
     color: var(--text-on-green);
     text-align: center;
-    padding: 10px;
+    padding: 12px;
     font-size: 10px;
     line-height: 1.2;
     margin-top: 10px;
@@ -154,19 +154,20 @@ p {
     flex-direction: column; 
     align-items: center; 
     justify-content: flex-start; 
-    min-height: calc(100vh - 100px); /* Altura mínima ajustada */
+    min-height: auto;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 .wrap { 
     width:95%; 
     max-width:640px; 
-    margin: 20px 0;
+    margin: 20px 0 10px 0;
 }
 .logo-top { 
     width:100%; 
     display:flex; 
     justify-content:center; 
-    margin-top: 32px; 
+    margin-top: 20px;
     margin-bottom: 8px; 
 }
 .panel { 
