@@ -318,6 +318,9 @@ h4 {
         min-height: calc(100vh - 60px);
         padding-bottom: 20px;
     }
+    .tablink{
+        font-size: 20px;
+    }
 }
 
 /* Media query para telas médias (769px a 1024px) - removida duplicação */
@@ -370,6 +373,9 @@ h4 {
     
     .hero {
         min-height: calc(100vh - 50px);
+    }
+    .tablink{
+        font-size: 18px;
     }
 }
 
