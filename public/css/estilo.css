@@ -513,6 +513,9 @@ h4 {
     padding: 12px;
     border-radius: 4px;
     margin: 0;
+    line-height: 1.4;
+    margin-top: 15px; 
+    display: block; 
     font-size: 14px;
     line-height: 1.4;
 }
