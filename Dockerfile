@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual .build-deps \
         openldap-dev \
         git \
     && docker-php-ext-configure ldap \
-    && docker-php-ext-install intl mbstring opcache xml zip curl ldap sockets \
+    && docker-php-ext-install intl mbstring opcache xml zip curl ldap \
     && apk del .build-deps
 
 # Instala Composer
