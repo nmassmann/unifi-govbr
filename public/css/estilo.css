@@ -249,25 +249,25 @@ h4 {
     body {
         height: auto;
         min-height: 100vh;
-        padding: 15px;
+        padding: 10px 8px; 
         box-sizing: border-box;
     }
     
     .wrap {
         width: 100%;
         max-width: 100%;
-        margin: 20px 0;
+        margin: 8px 0 4px 0;
         padding: 0 10px;
         box-sizing: border-box;
     }
     
     .logo-top {
-        margin-top: 20px;
-        margin-bottom: 16px;
+        margin-top: 12px;
+        margin-bottom: 4px;
     }
     
     .uffs-logo {
-        width: 280px;
+        width: 200px;
         max-width: 85vw;
     }
     
@@ -283,25 +283,27 @@ h4 {
     
     .tabs {
         gap: 4px;
-        margin: 12px 0 20px 0;
+        margin: 8px 0 10px 0;
         flex-wrap: wrap;
         justify-content: center;
     }
     
     .tabs.pills .tablink {
-        padding: 10px 12px;
-        font-size: 15px;
-        min-width: 80px;
+        padding: 8px 10px;
+        font-size: 13px;
+        min-width: 70px;
     }
     
     .inp {
-        padding: 14px 12px;
-        font-size: 18px; /* Evita zoom no iOS e melhora legibilidade */
+        padding: 12px 10px;
+        margin: 4px 0;
+        font-size: 16px; /* Evita zoom no iOS e melhora legibilidade */
     }
     
     .btn {
-        padding: 14px;
+        padding: 12px;
         font-size: 18px;
+        margin-top: 6px;
         font-weight: bold;
     }
     
