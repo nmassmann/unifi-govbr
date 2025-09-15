@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Service\UnifiService;
-
+use App\Service\FirewallLogService;
+use App\Utils\Net;
 use Psr\Log\LoggerInterface;
 
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +35,7 @@ class ReturnCallbackController extends AbstractController
     private UnifiService $conn;
 
     public function __construct(private UnifiService $unifiService,
+                                private FirewallLogService $firewallLog,
                                 private ParameterBagInterface $params,
                                 private LoggerInterface $logger) {
 
@@ -163,6 +166,11 @@ class ReturnCallbackController extends AbstractController
                                 if( $arr['success']){
 
                                     $this->logger->info('Cliente '.$payloadData['sub'].' conectado.');
+                                    
+                                    // Enviar log de sucesso para os firewalls
+                                    $clientIp = Net::getClientIp();
+                                    $this->firewallLog->sendAuthSuccess($payloadData['sub'], $clientIp);
+                                    
                                     return $this->render('autenticacao/success.html.twig', [
                                         'url_logout' => $this->params->get('app.url_logout'),
                                         'url_provider' => $this->params->get('app.govbr.url_provider')

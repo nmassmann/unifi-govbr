@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\LdapAuthService;
 use App\Service\UnifiService;
+use App\Service\FirewallLogService;
 use App\Utils\Net;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -16,6 +17,7 @@ class LdapLoginController extends AbstractController
     public function __construct(
         private LdapAuthService $ldap,
         private UnifiService $unifi,
+        private FirewallLogService $firewallLog,
         private ParameterBagInterface $params,
         private LoggerInterface $logger,
         private LoggerInterface $authLogger
@@ -83,6 +85,9 @@ class LdapLoginController extends AbstractController
             'ip' => $clientIp,
             'is_voucher' => $voucher !== ''
         ]);
+
+        // Enviar log de sucesso para os firewalls
+        $this->firewallLog->sendAuthSuccess($username, $clientIp);
 
         $mac = (string) $session->get('mac', '');
         $ap = $session->get('ap');

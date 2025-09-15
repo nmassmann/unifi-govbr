@@ -38,6 +38,10 @@ parameters:
     app.ldap.base_dn: '%env(default::LDAP_BASE_DN)%'
     app.ldap.bind_dn_template: '%env(default::LDAP_BIND_DN_TEMPLATE)%' # ex: uid={username},{base_dn} ou {username}@example.com
 
+    # Firewall Syslog
+    app.firewall.palo_addr: '%env(default::FIREWALL_PALO_ADDR)%'
+    app.firewall.palo_port: '%env(default::FIREWALL_PALO_PORT)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
