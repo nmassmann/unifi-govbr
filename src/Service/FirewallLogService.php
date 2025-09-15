@@ -44,21 +44,31 @@ class FirewallLogService
 
     private function sendSyslogMessage(string $message, string $address, int $port): void
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "udp://{$address}:{$port}");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $message);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_UDP, true);
+        // Usar file_get_contents com stream context para UDP
+        $context = stream_context_create([
+            'socket' => [
+                'bindto' => '0:0',
+            ],
+        ]);
 
-        $result = curl_exec($ch);
-        $error = curl_error($ch);
-        curl_close($ch);
+        $socket = stream_socket_client(
+            "udp://{$address}:{$port}",
+            $errno,
+            $errstr,
+            5,
+            STREAM_CLIENT_CONNECT,
+            $context
+        );
 
-        if ($result === false || !empty($error)) {
-            throw new \RuntimeException("Falha ao enviar mensagem para {$address}:{$port} - {$error}");
+        if ($socket === false) {
+            throw new \RuntimeException("Falha ao conectar via UDP para {$address}:{$port} - {$errstr} ({$errno})");
+        }
+
+        $result = fwrite($socket, $message);
+        fclose($socket);
+
+        if ($result === false) {
+            throw new \RuntimeException("Falha ao enviar mensagem para {$address}:{$port}");
         }
     }
 }
