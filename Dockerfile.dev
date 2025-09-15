@@ -14,7 +14,7 @@ RUN apk add --no-cache --virtual .build-deps \
         bash \
         linux-headers \
     && docker-php-ext-configure ldap \
-    && docker-php-ext-install intl mbstring opcache xml zip curl ldap
+    && docker-php-ext-install intl mbstring opcache xml zip curl ldap sockets
 
 # Instala Xdebug para dev
 RUN pecl install xdebug \
