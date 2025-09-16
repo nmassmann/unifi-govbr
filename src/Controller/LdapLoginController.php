@@ -51,15 +51,27 @@ class LdapLoginController extends AbstractController
         $password = (string) $request->request->get('password', '');
         $voucher = trim((string) $request->request->get('voucher', ''));
         
-        // Determinar qual aba foi usada
+        // Determinar qual aba foi usada ANTES de modificar username/password
         $activeTab = 'tab-ldap2'; // padrão visitante
+        
+        // Prioridade: voucher tem precedência sobre username
         if ($voucher !== '') {
             $activeTab = 'tab-voucher';
-        } elseif ($username !== '' && strpos($username, '@') === false) {
-            $activeTab = 'tab-ldap1'; // idUFFS (sem @)
-        } elseif ($username !== '' && strpos($username, '@') !== false) {
-            $activeTab = 'tab-ldap2'; // visitante (com @)
+        } else {
+            // Só verificar username se não há voucher
+            if ($username !== '' && strpos($username, '@') === false) {
+                $activeTab = 'tab-ldap1'; // idUFFS (sem @)
+            } elseif ($username !== '' && strpos($username, '@') !== false) {
+                $activeTab = 'tab-ldap2'; // visitante (com @)
+            }
         }
+        
+        // Log para debug
+        $this->logger->info('Aba ativa determinada', [
+            'voucher' => $voucher !== '' ? 'fornecido' : 'vazio',
+            'username' => $username,
+            'active_tab' => $activeTab
+        ]);
 
         // Se voucher foi fornecido, usar como username e password
         if ($voucher !== '') {
