@@ -149,8 +149,37 @@ class LdapLoginController extends AbstractController
             $clientInfo = $this->unifi->statClient($mac);
             $userId = $clientInfo[0]->_id ?? null;
             if ($userId) {
-                $notePrefix = $voucher !== '' ? 'VOUCHER:' : 'LDAP:';
-                $this->unifi->setStationNote($userId, $notePrefix . ($result['display_name'] ?? $username));
+                // Determinar o prefixo e nome baseado na aba ativa
+                $notePrefix = '';
+                $stationName = '';
+                $displayName = $result['display_name'] ?? $username;
+                
+                switch ($activeTab) {
+                    case 'tab-idUFFS':
+                        $notePrefix = 'idUFFS:';
+                        $stationName = 'idUFFS - ' . $displayName;
+                        break;
+                    case 'tab-visitantes':
+                        $notePrefix = 'Visitante:';
+                        $stationName = 'Visitante - ' . $displayName;
+                        break;
+                    case 'tab-voucher':
+                        $notePrefix = 'Voucher:';
+                        $stationName = 'Voucher - ' . $displayName;
+                        break;
+                    case 'tab-govbr':
+                        $notePrefix = 'gov.br:';
+                        $stationName = 'gov.br - ' . $displayName;
+                        break;
+                    default:
+                        $notePrefix = 'LDAP:';
+                        $stationName = 'LDAP - ' . $displayName;
+                        break;
+                }
+                
+                // Definir nota e nome da estação
+                $this->unifi->setStationNote($userId, $notePrefix . $displayName);
+                $this->unifi->setStationName($userId, $displayName);
             }
 
             return $this->render('autenticacao/success.html.twig', [

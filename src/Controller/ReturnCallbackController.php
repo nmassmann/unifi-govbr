@@ -161,7 +161,7 @@ class ReturnCallbackController extends AbstractController
 
                             if ($macSessao === $macRetorno) {
                                
-                                $arr = $this->doAuth($session->get('ap'), $macSessao, $payloadData['sub']);
+                                $arr = $this->doAuth($session->get('ap'), $macSessao, 'gov.br:' . $payloadData['sub']);
 
                                 if( $arr['success']){
 
@@ -264,7 +264,10 @@ class ReturnCallbackController extends AbstractController
             $auth_result = $this->conn->authorizeGuest($mac, $duration, $ap);
             $getid_result = $this->conn->statClient($mac);
             $user_id      = $getid_result[0]->_id;
+            // Extrair o nome do usuário (remover o prefixo "gov.br:")
+            $userName = str_replace('gov.br:', '', $note);
             $note_result  = $this->conn->setStationNote($user_id, $note);
+            $this->conn->setStationName($user_id, $userName);
 
             return [
                     'success' => true,
