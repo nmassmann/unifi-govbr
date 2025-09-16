@@ -60,7 +60,7 @@ class IndexController extends AbstractController
         $session->set('code_challenge', $codeChallenge);
 
         // Determinar qual aba deve estar ativa
-        $activeTab = $request->query->get('tab', 'tab-ldap2'); // padrão visitante
+        $activeTab = $request->query->get('tab', 'tab-visitantes'); // padrão visitante
         
         return $this->render('autenticacao/login.html.twig', [
                 'url_login' => $this->params->get('app.url_login'),

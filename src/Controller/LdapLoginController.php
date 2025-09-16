@@ -47,30 +47,26 @@ class LdapLoginController extends AbstractController
             $session->start();
         }
 
-        $username = trim((string) $request->request->get('username', ''));
+        $username_idUFFS = trim((string) $request->request->get('username_idUFFS', ''));
+        $username_visitante = trim((string) $request->request->get('username_visitante', ''));
         $password = (string) $request->request->get('password', '');
         $voucher = trim((string) $request->request->get('voucher', ''));
+        $activeTab = (string) $request->request->get('active_tab', 'tab-visitantes'); // padrão visitante
         
-        // Determinar qual aba foi usada ANTES de modificar username/password
-        $activeTab = 'tab-ldap2'; // padrão visitante
-        
-        // Prioridade: voucher tem precedência sobre username
-        if ($voucher !== '') {
-            $activeTab = 'tab-voucher';
-        } elseif ($username !== '') {
-            // Só verificar username se não há voucher e username não está vazio
-            if (strpos($username, '@') !== false) {
-                $activeTab = 'tab-ldap2'; // visitante (com @)
-            } else {
-                $activeTab = 'tab-ldap1'; // idUFFS (sem @)
-            }
+        // Determinar qual username usar baseado na aba ativa
+        $username = '';
+        if ($activeTab === 'tab-idUFFS') {
+            $username = $username_idUFFS;
+        } elseif ($activeTab === 'tab-visitantes') {
+            $username = $username_visitante;
         }
-        // Se username está vazio, mantém o padrão (visitante)
         
         // Log para debug
-        $this->logger->info('Aba ativa determinada', [
+        $this->logger->info('Aba ativa e username recebidos do formulário', [
             'voucher' => $voucher !== '' ? 'fornecido' : 'vazio',
-            'username' => $username,
+            'username_idUFFS' => $username_idUFFS,
+            'username_visitante' => $username_visitante,
+            'username_final' => $username,
             'active_tab' => $activeTab
         ]);
 
@@ -84,11 +80,15 @@ class LdapLoginController extends AbstractController
             // Garantir que a sessão seja salva antes do redirecionamento
             $session->save();
             
-            // Mensagem específica para vouchers
+            // Mensagem específica baseada na aba
             if ($voucher !== '') {
                 $session->getFlashBag()->add('error', 'Informe o voucher.');
+            } elseif ($activeTab === 'tab-idUFFS') {
+                $session->getFlashBag()->add('error', 'Informe o idUFFS e senha.');
+            } elseif ($activeTab === 'tab-visitantes') {
+                $session->getFlashBag()->add('error', 'Informe o e-mail e senha.');
             } else {
-                $session->getFlashBag()->add('error', 'Informe usuário e senha ou voucher.');
+                $session->getFlashBag()->add('error', 'Informe usuário e senha.');
             }
             
             return $this->redirectToRoute('index', ['tab' => $activeTab]);
@@ -110,9 +110,13 @@ class LdapLoginController extends AbstractController
             // Garantir que a sessão seja salva antes do redirecionamento
             $session->save();
             
-            // Mensagem específica para vouchers
+            // Mensagem específica baseada na aba
             if ($voucher !== '') {
                 $session->getFlashBag()->add('error', 'Voucher vencido ou inválido.');
+            } elseif ($activeTab === 'tab-idUFFS') {
+                $session->getFlashBag()->add('error', 'idUFFS ou senha inválidos.');
+            } elseif ($activeTab === 'tab-visitantes') {
+                $session->getFlashBag()->add('error', 'E-mail ou senha inválidos.');
             } else {
                 $session->getFlashBag()->add('error', $result['message'] ?? 'Usuário ou senha inválidos.');
             }
