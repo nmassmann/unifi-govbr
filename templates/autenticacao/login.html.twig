@@ -20,12 +20,12 @@
                 </button>
                 <button class="tablink {{ active_tab == 'tab-idUFFS' ? 'active' : '' }}" data-tab="tab-idUFFS">idUFFS</button>
             </div>
-
-            <div id="tab-idUFFS" class="tabcontent {{ active_tab == 'tab-idUFFS' ? 'active' : '' }}">
-                <h4 class="text-justify">Forneça suas credenciais:</h4>
                 {% for flash_error in app.flashes('error') %}
                     <div class="alert alert-danger">{{ flash_error }}</div>
                 {% endfor %}
+            <div id="tab-idUFFS" class="tabcontent {{ active_tab == 'tab-idUFFS' ? 'active' : '' }}">
+                <h4 class="text-justify">Forneça suas credenciais:</h4>
+                
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="hidden" name="active_tab" value="tab-idUFFS" />
                     <input type="text" name="username_idUFFS" placeholder="idUFFS" autocomplete="username" required class="inp" />
@@ -47,9 +47,6 @@
 
             <div id="tab-visitantes" class="tabcontent {{ active_tab == 'tab-visitantes' ? 'active' : '' }}">
                 <h4 class="text-justify">Forneça suas credenciais:</h4>
-                {% for flash_error in app.flashes('error') %}
-                    <div class="alert alert-danger">{{ flash_error }}</div>
-                {% endfor %}
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="hidden" name="active_tab" value="tab-visitantes" />
                     <input type="text" name="username_visitante" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
@@ -76,9 +73,7 @@
 
             <div id="tab-voucher" class="tabcontent {{ active_tab == 'tab-voucher' ? 'active' : '' }}">
                 <h4 class="text-justify">Digite seu voucher:</h4>
-                {% for flash_error in app.flashes('error') %}
-                    <div class="alert alert-danger">{{ flash_error }}</div>
-                {% endfor %}
+
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="hidden" name="active_tab" value="tab-voucher" />
                     <input type="text" name="voucher" placeholder="Código do voucher" autocomplete="off" required class="inp" />
