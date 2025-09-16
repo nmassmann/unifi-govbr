@@ -26,8 +26,11 @@ class IndexController extends AbstractController
             $session->start();
         }
 
-        // Verificando se o parâmetro id existe antes de usar
-        if (null !== $request->query->get('id')) {
+        // Verificar se já temos MAC na sessão (redirecionamento após erro de auth)
+        if ($session->has('mac')) {
+            $mac = $session->get('mac');
+        } elseif (null !== $request->query->get('id')) {
+            // Primeira vez - parâmetros da controladora wifi
             $mac = htmlspecialchars($request->query->get('id'));
             $session->set('mac', $mac);
         } else {
@@ -37,9 +40,16 @@ class IndexController extends AbstractController
             ]);
         }
 
-        $session->set('ap', $request->query->get('ap') ?? '');
-        $session->set('t', $request->query->get('t') ?? '');
-        $session->set('url', $request->query->get('url') ?? '');
+        // Só definir outros parâmetros se não existirem na sessão (primeira vez)
+        if (!$session->has('ap')) {
+            $session->set('ap', $request->query->get('ap') ?? '');
+        }
+        if (!$session->has('t')) {
+            $session->set('t', $request->query->get('t') ?? '');
+        }
+        if (!$session->has('url')) {
+            $session->set('url', $request->query->get('url') ?? '');
+        }
 
         // Gerar o Code Verifier e armazenar na sessão
         $codeVerifier = Govbr::generateCodeVerifier();
