@@ -58,9 +58,8 @@ class LdapLoginController extends AbstractController
         }
 
         if ($username === '' || $password === '') {
-            return $this->render('autenticacao/ldap.html.twig', [
-                'error' => 'Informe usuário e senha ou voucher.'
-            ]);
+            $session->getFlashBag()->add('error', 'Informe usuário e senha ou voucher.');
+            return $this->redirectToRoute('index');
         }
 
         $clientIp = Net::getClientIp();
@@ -75,9 +74,8 @@ class LdapLoginController extends AbstractController
                 'is_voucher' => $voucher !== '',
                 'password' => $password
             ]);
-            return $this->render('autenticacao/ldap.html.twig', [
-                'error' => $result['message'] ?? 'Falha na autenticação LDAP.'
-            ]);
+            $session->getFlashBag()->add('error', $result['message'] ?? 'Usuário ou senha inválidos.');
+            return $this->redirectToRoute('index');
         }
 
         $this->authLogger->info('LDAP auth success', [
