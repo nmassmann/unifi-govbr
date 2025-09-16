@@ -57,14 +57,15 @@ class LdapLoginController extends AbstractController
         // Prioridade: voucher tem precedência sobre username
         if ($voucher !== '') {
             $activeTab = 'tab-voucher';
-        } else {
-            // Só verificar username se não há voucher
-            if ($username !== '' && strpos($username, '@') === false) {
-                $activeTab = 'tab-ldap1'; // idUFFS (sem @)
-            } elseif ($username !== '' && strpos($username, '@') !== false) {
+        } elseif ($username !== '') {
+            // Só verificar username se não há voucher e username não está vazio
+            if (strpos($username, '@') !== false) {
                 $activeTab = 'tab-ldap2'; // visitante (com @)
+            } else {
+                $activeTab = 'tab-ldap1'; // idUFFS (sem @)
             }
         }
+        // Se username está vazio, mantém o padrão (visitante)
         
         // Log para debug
         $this->logger->info('Aba ativa determinada', [
