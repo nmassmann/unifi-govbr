@@ -60,7 +60,14 @@ class LdapLoginController extends AbstractController
         if ($username === '' || $password === '') {
             // Garantir que a sessão seja salva antes do redirecionamento
             $session->save();
-            $session->getFlashBag()->add('error', 'Informe usuário e senha ou voucher.');
+            
+            // Mensagem específica para vouchers
+            if ($voucher !== '') {
+                $session->getFlashBag()->add('error', 'Informe o voucher.');
+            } else {
+                $session->getFlashBag()->add('error', 'Informe usuário e senha ou voucher.');
+            }
+            
             return $this->redirectToRoute('index');
         }
 
@@ -79,7 +86,14 @@ class LdapLoginController extends AbstractController
             
             // Garantir que a sessão seja salva antes do redirecionamento
             $session->save();
-            $session->getFlashBag()->add('error', $result['message'] ?? 'Usuário ou senha inválidos.');
+            
+            // Mensagem específica para vouchers
+            if ($voucher !== '') {
+                $session->getFlashBag()->add('error', 'Voucher vencido ou inválido.');
+            } else {
+                $session->getFlashBag()->add('error', $result['message'] ?? 'Usuário ou senha inválidos.');
+            }
+            
             return $this->redirectToRoute('index');
         }
 

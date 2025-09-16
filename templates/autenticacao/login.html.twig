@@ -9,10 +9,6 @@
             <img src="{{ asset('banner/uffs-logo-branca.png') }}" alt="Universidade Federal da Fronteira Sul" class="uffs-logo" onerror="this.style.display='none'">
         </div>
         <div class="panel">
-            {% for flash_error in app.flashes('error') %}
-                <div class="alert alert-danger">{{ flash_error }}</div>
-            {% endfor %}
-            
             <h4>Escolha a forma de Autenticação:</h4>
 
             <div class="tabs pills">
@@ -27,6 +23,9 @@
 
             <div id="tab-ldap1" class="tabcontent">
                 <h4 class="text-justify">Forneça suas credenciais:</h4>
+                {% for flash_error in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ flash_error }}</div>
+                {% endfor %}
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="idUFFS" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -47,6 +46,9 @@
 
             <div id="tab-ldap2" class="tabcontent active">
                 <h4 class="text-justify">Forneça suas credenciais:</h4>
+                {% for flash_error in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ flash_error }}</div>
+                {% endfor %}
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="username" placeholder="e-mail cadastrado" autocomplete="username" required class="inp" />
                     <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required class="inp" />
@@ -72,6 +74,9 @@
 
             <div id="tab-voucher" class="tabcontent">
                 <h4 class="text-justify">Digite seu voucher:</h4>
+                {% for flash_error in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ flash_error }}</div>
+                {% endfor %}
                 <form method="post" action="{{ path('ldap_auth') }}">
                     <input type="text" name="voucher" placeholder="Código do voucher" autocomplete="off" required class="inp" />
                     <button type="submit" class="btn btnform">Entrar</button>
