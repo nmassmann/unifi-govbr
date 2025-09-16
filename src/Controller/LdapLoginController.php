@@ -50,6 +50,16 @@ class LdapLoginController extends AbstractController
         $username = trim((string) $request->request->get('username', ''));
         $password = (string) $request->request->get('password', '');
         $voucher = trim((string) $request->request->get('voucher', ''));
+        
+        // Determinar qual aba foi usada
+        $activeTab = 'tab-ldap2'; // padrão visitante
+        if ($voucher !== '') {
+            $activeTab = 'tab-voucher';
+        } elseif ($username !== '' && strpos($username, '@') === false) {
+            $activeTab = 'tab-ldap1'; // idUFFS (sem @)
+        } elseif ($username !== '' && strpos($username, '@') !== false) {
+            $activeTab = 'tab-ldap2'; // visitante (com @)
+        }
 
         // Se voucher foi fornecido, usar como username e password
         if ($voucher !== '') {
@@ -68,7 +78,7 @@ class LdapLoginController extends AbstractController
                 $session->getFlashBag()->add('error', 'Informe usuário e senha ou voucher.');
             }
             
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('index', ['tab' => $activeTab]);
         }
 
         $clientIp = Net::getClientIp();
@@ -94,7 +104,7 @@ class LdapLoginController extends AbstractController
                 $session->getFlashBag()->add('error', $result['message'] ?? 'Usuário ou senha inválidos.');
             }
             
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('index', ['tab' => $activeTab]);
         }
 
         $this->authLogger->info('LDAP auth success', [
